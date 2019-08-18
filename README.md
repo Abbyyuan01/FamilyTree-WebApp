@@ -9,4 +9,15 @@ Team Member:
    | Nisha SV Lingam | 123 | 123student.unimelb.edu.au |
    | Iris Tang | 904694 | mengjiet@student.unimelb.edu.au |
    | Yuan Yuan | 939342 | yyuan10@student.unimelb.edu.au |
+  
     
+## Quick Start
+
+```javascript
+// Install dependencies for server & client
+npm install && npm run client-install
+
+// Run client & server with concurrently
+npm run dev
+
+// Server runs on http://localhost:5000 and client on http://localhost:3000
