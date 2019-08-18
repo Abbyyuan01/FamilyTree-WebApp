@@ -2,9 +2,9 @@
 Team Member:
 
     | Name | ID | Email |
-    |-------| ----------------- | ----------------- |
-    | Lindsay Symons | ... | ...@student.unimelb.edu.au |
-    | Nisha SV Lingam | ... | ...@student.unimelb.edu.au |
+    |---| --- | --- |
+    | Lindsay Symons | 123 | 123student.unimelb.edu.au |
+    | Nisha SV Lingam | 123 | 123student.unimelb.edu.au |
     | Iris Tang | 904694 | mengjiet@student.unimelb.edu.au |
     | Yuan Yuan | 939342 | yyuan10@student.unimelb.edu.au |
     
