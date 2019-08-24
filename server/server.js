@@ -1,41 +1,25 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const passport = require("passport");
-
-const users = require("./routes/api/users");
-
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
 const app = express();
 
-// Bodyparser middleware
-app.use(
-  bodyParser.urlencoded({
-    extended: false
-  })
-);
-app.use(bodyParser.json());
+// midware use
+app.use(cors());
+app.use(express.json());
 
-// DB Config
-const db = require("./config/keys").mongoURI;
+//connect to mongoab
+const uri = "mongodb+srv://ghostzen:ghostzen111@cluster0-tvhfs.gcp.mongodb.net/familytree?retryWrites=true&w=majority"
+//const uri = "mongodb://localhost:27017/familytree"
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
+const connection = mongoose.connection;
+connection.once('open', () => {
+  console.log("Mongodb database connection established successfully");
+})
 
-// Connect to MongoDB
-mongoose
-  .connect(
-    db,
-    { useNewUrlParser: true }
-  )
-  .then(() => console.log("MongoDB successfully connected"))
-  .catch(err => console.log(err));
+const port = process.env.PORT||3000;
+app.listen(port, () => {
+    console.log(`Server running is runnig on port: ${port}`)
+});
+ 
 
-// Passport middleware
-app.use(passport.initialize());
 
-// Passport config
-require("./config/passport")(passport);
-
-// Routes
-app.use("/api/users", users);
-
-const port = process.env.PORT || 5000;
-
-app.listen(port, () => console.log(`Server up and running on port ${port} !`));
