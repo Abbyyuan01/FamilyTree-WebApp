@@ -16,7 +16,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import { Navbar } from '../components/navbar.component'
+import { Navbar } from '../navbar/navbar.component'
 
 const styles = {
   root: {
