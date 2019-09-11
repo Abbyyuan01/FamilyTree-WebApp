@@ -1,7 +1,6 @@
 var express = require('express');
 var cors = require('cors');
 var app = express();
-var bodyParser = require('body-parser');
 const multer = require('multer');
 const mongoose = require('mongoose');
 
@@ -9,19 +8,14 @@ const mongoose = require('mongoose');
 app.use(cors());
 app.use(express.json());
 
-// body-parser
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 // set view engine
 
 //connect to mongoab
-const uri = "mongodb+srv://ghostzen:ghostzen111@cluster0-tvhfs.gcp.mongodb.net/familytree?retryWrites=true&w=majority";
-//const uri = "mongodb://localhost:27017/familytree"
+//const uri = "mongodb+srv://ghostzen:ghostzen111@cluster0-tvhfs.gcp.mongodb.net/familytree?retryWrites=true&w=majority";
+const uri = "mongodb://localhost:27017/familytree"
 
 const options = {
-    useNewUrlParser: true,
-    dbName: "ghostzen"
+    useNewUrlParser: true
 };
 
 mongoose.connect(uri, options).then(
@@ -33,14 +27,12 @@ mongoose.connect(uri, options).then(
     }
 );
 
-require('./model/artifacts.js');
-
 //Routes Setup
-var artifactRoute = require('./routes/artifactRoute.js');
+const artifactRouter = require('./routes/artifact.route');
 
-app.use('/',artifactRoute);
+app.use('/', artifactRouter);
 
-const port = process.env.PORT||5000;
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
     console.log(`Server running is runnig on port: ${port}`)
 });
