@@ -8,12 +8,15 @@ import { withStyles } from '@material-ui/core/styles';
 // import CardContent from '@material-ui/core/CardContent';
 // import CardMedia from '@material-ui/core/CardMedia';
 // import Button from '@material-ui/core/Button';
-// import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography'; 
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import Container from '@material-ui/core/Container';
+import axios from 'axios'
+import { Link } from 'react-router-dom'
+import { Navbar } from '../components/navbar.component'
 
 const styles = {
   root: {
@@ -33,77 +36,45 @@ const styles = {
 }
 
 class ArtifactView extends Component {
+    constructor(props){
+        super(props);
+        this.state = {artifacts: []} 
+    }
+
+    //load before everything
+    componentDidMount() {
+        axios.get('http://localhost:5000/artifacts/')
+          .then(response => {
+              if (response.data.length > 0) {
+                  this.setState({
+                      artifacts: response.data
+                  })
+              }
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+    }
+
     
     render (){
         const classes = this.props;
-
-        const tileData = [
-            {
-                img:"https://croweandassociates.com/wp-content/uploads/2017/07/guidelines.jpg",
-                title:'Image',
-                author: 'author'
-            },
-            {
-                img:"https://croweandassociates.com/wp-content/uploads/2017/07/guidelines.jpg",
-                title:'Image',
-                author: 'author' 
-            },
-            {
-                img:"https://croweandassociates.com/wp-content/uploads/2017/07/guidelines.jpg",
-                title:'Image',
-                author: 'author' 
-            },
-            {
-                img:"https://croweandassociates.com/wp-content/uploads/2017/07/guidelines.jpg",
-                title:'Image',
-                author: 'author' 
-            },
-            {
-                img:"https://croweandassociates.com/wp-content/uploads/2017/07/guidelines.jpg",
-                title:'Image',
-                author: 'author' 
-            },
-            {
-                img:"https://croweandassociates.com/wp-content/uploads/2017/07/guidelines.jpg",
-                title:'Image',
-                author: 'author' 
-            },
-            {
-                img:"https://croweandassociates.com/wp-content/uploads/2017/07/guidelines.jpg",
-                title:'Image',
-                author: 'author' 
-            },
-            {
-                img:"https://croweandassociates.com/wp-content/uploads/2017/07/guidelines.jpg",
-                title:'Image',
-                author: 'author' 
-            },
-            {
-                img:"https://croweandassociates.com/wp-content/uploads/2017/07/guidelines.jpg",
-                title:'Image',
-                author: 'author' 
-            },
-            {
-                img:"https://croweandassociates.com/wp-content/uploads/2017/07/guidelines.jpg",
-                title:'Image',
-                author: 'author' 
-            } ]   
-
         return (
+            <div>
             <Container maxWidth="lg">
                 <div className={classes.root}>
                 <GridList cellHeight={300} className={classes.gridList} cols={4} spacing={30}>
                     {/* <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
                     <ListSubheader component="div">December</ListSubheader>
                     </GridListTile> */}
-                    {tileData.map(tile => (
-                    <GridListTile key={tile.img}>
-                        <img src={tile.img} alt={tile.title} />
+                    {this.state.artifacts.map(artifact => (
+                    <GridListTile key={artifact._id}>
+                        <img src={artifact.url} alt={artifact.name} />
                         <GridListTileBar
-                        title={tile.title}
-                        subtitle={<span>by: {tile.author}</span>}
+                        title={artifact.name}
+                        subtitle={<span>by: {artifact.userID}</span>}
                         actionIcon={
-                            <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
+                            <IconButton aria-label={`info about ${artifact.name}`} className={classes.icon}>
                             <InfoIcon />
                             </IconButton>
                         }
@@ -113,6 +84,7 @@ class ArtifactView extends Component {
                 </GridList>
                 </div>
             </Container>
+            </div>
         )
     }
 }

@@ -15,15 +15,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // set view engine
 
-
 //connect to mongoab
 const uri = "mongodb+srv://ghostzen:ghostzen111@cluster0-tvhfs.gcp.mongodb.net/familytree?retryWrites=true&w=majority";
+//const uri = "mongodb://localhost:27017/familytree"
 
 const options = {
     useNewUrlParser: true,
     dbName: "ghostzen"
 };
-//const uri = "mongodb://localhost:27017/familytree"
+
 mongoose.connect(uri, options).then(
     () => {
         console.log("Database connection established!");
@@ -34,6 +34,7 @@ mongoose.connect(uri, options).then(
 );
 
 require('./model/artifacts.js');
+
 //Routes Setup
 var artifactRoute = require('./routes/artifactRoute.js');
 
