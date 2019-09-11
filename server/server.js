@@ -10,9 +10,15 @@ app.use(express.json());
 
 // set view engine
 
+
+// TODO: use config to set db uri ---Abby
+// TODO: set test enviroment port ---Abby
+
 //connect to mongoab
 //const uri = "mongodb+srv://ghostzen:ghostzen111@cluster0-tvhfs.gcp.mongodb.net/familytree?retryWrites=true&w=majority";
+//const testUri = "mongodb+srv://ghostzen:ghostzen111@cluster0-tvhfs.gcp.mongodb.net/test?retryWrites=true&w=majority";
 const uri = "mongodb://localhost:27017/familytree"
+//const uri = "mongodb://localhost:27017/test"
 
 const options = {
     useNewUrlParser: true
