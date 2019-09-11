@@ -16,7 +16,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import { Navbar } from '../navbar/navbar.component'
+import  Navbar  from '../navbar/navbar.component'
 
 const styles = {
   root: {
@@ -60,7 +60,7 @@ class ArtifactView extends Component {
     render (){
         const classes = this.props;
         return (
-            <div>
+            <div className={classes.root}>
             <Container maxWidth="lg">
                 <div className={classes.root}>
                 <GridList cellHeight={300} className={classes.gridList} cols={4} spacing={30}>
