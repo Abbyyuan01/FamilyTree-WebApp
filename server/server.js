@@ -15,9 +15,9 @@ app.use(express.json());
 // TODO: set test enviroment port ---Abby
 
 //connect to mongoab
-//const uri = "mongodb+srv://ghostzen:ghostzen111@cluster0-tvhfs.gcp.mongodb.net/familytree?retryWrites=true&w=majority";
+const uri = "mongodb+srv://ghostzen:ghostzen111@cluster0-tvhfs.gcp.mongodb.net/familytree?retryWrites=true&w=majority";
 //const testUri = "mongodb+srv://ghostzen:ghostzen111@cluster0-tvhfs.gcp.mongodb.net/test?retryWrites=true&w=majority";
-const uri = "mongodb://localhost:27017/familytree"
+//const uri = "mongodb://localhost:27017/familytree"
 //const uri = "mongodb://localhost:27017/test"
 
 const options = {
