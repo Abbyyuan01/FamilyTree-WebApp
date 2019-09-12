@@ -3,6 +3,7 @@ import Navbar from './components/navbar/navbar.component'
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Login from './components/authentication/login.component'
 
 
 const styles = theme => ({
@@ -17,9 +18,7 @@ class Main extends Component {
     return (
       <div className={classes.root}>
           <Router>
-            <div className="container">
-                
-                <br />
+            <div className="container">       
                 <Route path="/navbar" component={Navbar} />
             </div>
         </Router>
