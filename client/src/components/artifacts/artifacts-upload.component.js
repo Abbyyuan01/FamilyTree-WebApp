@@ -8,19 +8,21 @@ class ArtifactUpload extends Component {
   }
   fileSelectedHandler = event => {
     this.setState({
-      seleectedFile: event.target.files[0]
+      selectedFile: event.target.files[0]
     })
   }
 
   fileUploadHandler = () => {
     const newInput = new FormData();
 
-    
-    newInput.append('image',this.state.selectedFile, this.state.selectedFile.name);
 
-    axios.post('http://localhost:5000/artifacts/', newInput)
+    newInput.append('image',this.state.selectedFile, this.state.selectedFile.name);
+    axios.post('http://localhost:5000/uploadArtifacts/', newInput)
       .then(res => {
         console.log(res);
+        console.log("successful!")
+      }).catch(err=>{
+        console.log(err)
       });
 
   };
