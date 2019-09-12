@@ -28,7 +28,7 @@ const upload = multer({
 });
 
 //upload artifacts
-router.post('/artifacts', async (req, res) => {
+router.post('/uploadArtifacts',upload.single('imageData'), async (req, res) => {
     const newArtifact = new Artifact({
         "name": req.body.name,
         "url": req.body.url,
@@ -36,7 +36,7 @@ router.post('/artifacts', async (req, res) => {
         "editTime": Date.now(),
         "tag": req.body.tag,
         "category": req.body.category,
-        "artifactTime": Date.parse(req.body.artifactTime),
+        "artifactTime": req.body.artifactTime,
         "userID": req.body.userID,
         "visibility": req.body.visibility
     });

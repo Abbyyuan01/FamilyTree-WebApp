@@ -12,9 +12,15 @@ class ArtifactUpload extends Component {
     })
   }
 
-  // fileUploadHandler = () => {
-  //   axios.post('')
-  // };
+  fileUploadHandler = () => {
+    const newInput = new FormData();
+    newInput.append('image',this.state.selectedFile, this.state.selectedFile.name);
+    axios.post('http://localhost:5000/artifacts/', newInput)
+      .then(res => {
+        console.log(res);
+      });
+
+  };
 
   render() {
     return (
