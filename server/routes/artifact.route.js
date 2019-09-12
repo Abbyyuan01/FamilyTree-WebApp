@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-    if (file.mimeType === 'image/jpeg' || file.mimeType === 'image/png') {
+    if (file.mimeType === 'image/jpeg' || file.mimeType === 'image/png' || file.mimeType === 'image/jpg') {
         cb(null, true);
     } else {
         cb(null, false);
@@ -28,7 +28,7 @@ const upload = multer({
 });
 
 //upload artifacts
-router.post('/uploadArtifacts',upload.single('imageData'), async (req, res) => {
+router.post('/uploadArtifacts',upload.single('image'), async (req, res) => {
     const newArtifact = new Artifact({
         "name": req.body.name,
         "url": req.body.url,
@@ -52,35 +52,6 @@ router.get('/artifacts', async (req, res) => {
         .then(artifacts => res.json(artifacts))
         .catch(err => res.status(400).json('Error: ' + err));
 });
-
-// //add artifacts
-// router.post('/add', async (req, res) => {
-//     const name = req.body.name
-//     const url = req.body.url
-//     const description = req.body.description
-//     const editTime = Date.parse(req.body.editTime)
-//     const tag = req.body.tag
-//     const category = req.body.category
-//     const artifactTime = Date.parse(req.body.artifactTime)
-//     const userID = req.body.userID
-//     const visibility = req.body.visibility
-
-//     const newArtifact = new Artifact({
-//         name,
-//         url,
-//         description,
-//         editTime,
-//         tag,
-//         category,
-//         artifactTime,
-//         userID,
-//         visibility
-//     })
-
-//     await newArtifact.save()
-//         .then(() => res.json('Artifact added!'))
-//         .catch(err => res.status(400).json('Error: ' + err));
-// });
 
 //get artifacts by id
 router.get('/artifacts/:id', async (req, res) => {
