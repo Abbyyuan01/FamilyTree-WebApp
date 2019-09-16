@@ -16,6 +16,7 @@ Team Members:
 ```javascript
 // Install dependencies for server & client
 npm install 
+npm install --save react-mdl
 
 // Run client & server with concurrently
 npm start
