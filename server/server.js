@@ -1,12 +1,16 @@
 var express = require('express');
 var cors = require('cors');
 var app = express();
-const multer = require('multer');
 const mongoose = require('mongoose');
+const passport = require("passport");
 
 // midware use
 app.use(cors());
 app.use(express.json());
+app.use(passport.initialize());
+
+// Passport config
+require("./config/passport")(passport);
 
 // set view engine
 
@@ -35,8 +39,12 @@ mongoose.connect(uri, options).then(
 
 //Routes Setup
 const artifactRouter = require('./routes/artifact.route');
+const userRouter = require('./routes/user.route');
+const loginRouter = require('./validation/login')
 
 app.use('/', artifactRouter);
+app.use('/', userRouter);
+app.use('/', loginRouter);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
