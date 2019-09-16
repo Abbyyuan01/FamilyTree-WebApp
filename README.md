@@ -1,17 +1,23 @@
-# [YouTube Tutorial](https://www.youtube.com/playlist?list=PL3KAvm6JMiowqFTXj3oPQkhP7aCgRHFTm)
-I created a Youtube code along tutorial for this project. Click the link above to view!
+# GhostZen
 
-# react-portfolio-starter
-A React based personal portfolio app using create-react-app and React Router v4.
+The project will create a web-based app to help family members to store their family artefacts including photos, documents, letters and etc. The project will be completed by Monday 28 October 2019. 6 Modules of the app will include family artifacts management, account management, search, authentication, access level and message.
 
-# Tools
-* create-react-app cli
-* React MDL material design
-* React Router v4
+Team Members:
 
-# Start App
-Clone repo, install, cd into folder and run:
-```git
-npm install
+   |Name|ID|Email|
+   | --- | --- | --- |
+   | Nisha SV Lingam | 887307 | nsv@student.unimelb.edu.au |
+   | Iris Tang | 904694 | mengjiet@student.unimelb.edu.au |
+   | Yuan Yuan | 939342 | yyuan10@student.unimelb.edu.au |
+  
+    
+## Quick Start
+
+```javascript
+// Install dependencies for server & client
+npm install 
+
+// Run client & server with concurrently
 npm start
-```
+
+// Server runs on http://localhost:5000 and client on http://localhost:3000
