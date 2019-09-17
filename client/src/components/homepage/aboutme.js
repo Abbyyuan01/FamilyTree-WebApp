@@ -1,8 +1,12 @@
 import React, { Component } from "react";
+import HomeNav from './navbar/homeNav';
 
 class About extends Component {
   render() {
     return (
+      <div>
+      <HomeNav />
+      <br/> 
       <div class="team-section">
         <h1>Our Team</h1>
         <span class="border"></span>
@@ -42,6 +46,7 @@ class About extends Component {
           <span class="border"></span>
           <p>Nisha is aite.</p>
         </div>
+      </div>
       </div>
     );
   }

@@ -13,8 +13,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import axios from 'axios';
-import jwt_decode from "jwt-decode";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
@@ -80,7 +78,7 @@ class Login extends Component {
   
     componentWillReceiveProps(nextProps) {
       if (nextProps.auth.isAuthenticated) {
-        this.props.history.push("/navbar");
+        this.props.history.push("/dashboard");
       }
   
       if (nextProps.errors) {
@@ -211,9 +209,8 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-// export default withStyles(styles)(GenerateAccount);
 export default withStyles(styles)(connect(
   mapStateToProps,
   { loginUser }
 )(Login));
-// export default withStyles(styles)(Login);
+

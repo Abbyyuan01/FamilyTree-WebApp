@@ -15,9 +15,10 @@ import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
+import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
 
-const styles = {
+const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -32,12 +33,18 @@ const styles = {
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
   },
-}
+  button: {
+    padding: '30px',
+    margin: theme.spacing(1)
+  }
+
+})
 
 class ArtifactView extends Component {
     constructor(props){
         super(props);
         this.state = {artifacts: []} 
+        this.handleClick = this.handleClick.bind(this);
     }
 
     //load before everything
@@ -55,34 +62,47 @@ class ArtifactView extends Component {
           })
     }
 
-    
+    handleClick(){
+      this.props.history.push("/dashboard/upload");
+    }
+
     render (){
         const classes = this.props;
+
         return (
             <div className={classes.root}>
-            <Container maxWidth="lg">
-                <div className={classes.root}>
-                <GridList cellHeight={300} className={classes.gridList} cols={4} spacing={30}>
-                    {/* <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-                    <ListSubheader component="div">December</ListSubheader>
-                    </GridListTile> */}
-                    {this.state.artifacts.map(artifact => (
-                    <GridListTile key={artifact._id}>
-                        <img src={artifact.url} alt={artifact.name} />
-                        <GridListTileBar
-                        title={artifact.name}
-                        subtitle={<span>by: {artifact.userID}</span>}
-                        actionIcon={
-                            <IconButton aria-label={`info about ${artifact.name}`} className={classes.icon}>
-                            <InfoIcon />
-                            </IconButton>
-                        }
-                        />
-                    </GridListTile>
-                    ))}
-                </GridList>
-                </div>
-            </Container>
+              <Container maxWidth="lg">
+                  <div className={classes.root}>
+                      <Button variant="contained" 
+                              color="primary" 
+                              className={classes.button}
+                              onClick={this.handleClick}
+                            >
+                        Upload Artifacts
+                      </Button>
+                  </div>
+                  <div className={classes.root}>
+                  <GridList cellHeight={300} className={classes.gridList} cols={4} spacing={30}>
+                      {/* <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
+                      <ListSubheader component="div">December</ListSubheader>
+                      </GridListTile> */}
+                      {this.state.artifacts.map(artifact => (
+                      <GridListTile key={artifact._id}>
+                          <img src={artifact.url} alt={artifact.name} />
+                          <GridListTileBar
+                          title={artifact.name}
+                          subtitle={<span>by: {artifact.userID}</span>}
+                          actionIcon={
+                              <IconButton aria-label={`info about ${artifact.name}`} className={classes.icon}>
+                              <InfoIcon />
+                              </IconButton>
+                          }
+                          />
+                      </GridListTile>
+                      ))}
+                  </GridList>
+                  </div>
+              </Container>
             </div>
         )
     }

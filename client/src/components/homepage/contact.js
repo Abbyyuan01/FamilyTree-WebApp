@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { Grid, Cell, List, ListItem, ListItemContent } from "react-mdl";
+import HomeNav from './navbar/homeNav';
 
 class Contact extends Component {
   render() {
     return (
+      <div>
+      <HomeNav />
+      <br/>
       <div className="contact-body">
         <Grid className="contact-grid">
           <Cell col={6}>
@@ -66,6 +70,7 @@ class Contact extends Component {
             </div>
           </Cell>
         </Grid>
+      </div>
       </div>
     );
   }

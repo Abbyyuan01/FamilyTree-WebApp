@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, withRouter} from "react-router-dom";
 import React, { Component } from "react";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
@@ -16,7 +16,9 @@ import GenerateAccount from './components/authentication/generate.component';
 import ArtifactUpload from './components/dashboard/artifacts/artifacts-upload.component';
 import ArtifactAblum from './components/dashboard/artifacts/artifacts-album.component';
 import ArtifactView from './components/dashboard/artifacts/artifacts-view.component';
+import Timeline from './components/dashboard/artifacts/artifacts-timeline.component';
 import HomeNav from './components/homepage/navbar/homeNav';
+import DashboardNav from './components/dashboard/navbar/dashboardNav';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -43,24 +45,34 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <Switch>
-            <div >
-              <div>
-                <HomeNav/>
-              </div>
-              <Route exact path="/" component={LandingPage} />
-              <Route path="/aboutme" component={AboutMe} />
-              <Route path="/contactUs" component={ContactUs} />
-              <Route path="/contact" component={Contact} /> 
-            </div>
-    
+        <ScrollToTopWithRouter>
+          <Switch>     
+            <Route exact path="/" component={LandingPage} />
+            <Route exact path="/aboutme" component={AboutMe} />
+            <Route exact path="/contactUs" component={ContactUs} />
+            <Route exact path="/contact" component={Contact} /> 
             <Route exact path="/login" component={Login} />   
-            <Route exact path="/register" component={GenerateAccount} />
-    
-          
-            {/* <PrivateRoute exact path="/navbar" component={Navbar} />  */}
+            <Route exact path="/register" component={GenerateAccount} /> 
+            
+            <Route
+              path="/dashboard"
+              render={({ match: { path } }) => (
+                  <DashboardNav>
+                  <Route exact path={`${path}/`} component={ArtifactView} />
+                  <Route
+                    path={`${path}/upload`}
+                    component={ArtifactUpload}
+                  />
+                  <Route
+                    path={`${path}/timeline`}
+                    component={Timeline}
+                  />  
+                  </DashboardNav>         
+              )}
+            />
           </Switch>
-        </Router>
+          </ScrollToTopWithRouter>
+        </Router>       
       </Provider>
     )
 
@@ -68,3 +80,18 @@ class App extends Component {
 }
 
 export default App;
+
+class ScrollToTop extends React.Component {
+  componentDidUpdate(prevProps) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
+      window.scrollTo(0, 0);
+    }
+  }
+
+  render() {
+    return this.props.children;
+  }
+}
+
+const ScrollToTopWithRouter = withRouter(ScrollToTop);
+
