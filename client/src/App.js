@@ -1,18 +1,22 @@
-import Login from './components/authentication/login.component'
-import GenerateAccount from './components/authentication/generate.component'
-import Navbar from './components/navbar/navbar.component'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
-
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { Provider } from "react-redux";
-import store from "./store";
-
+import store from "./store/store";
 import PrivateRoute from "./components/private-route/PrivateRoute";
-
-import "./App.css";
+//import components
+import LandingPage from "./components/homepage/landingpage";
+import AboutMe from "./components/homepage/aboutme";
+import Contact from "./components/homepage/contact";
+import ContactUs from "./components/homepage/contactus";
+import Login from './components/authentication/login.component';
+import GenerateAccount from './components/authentication/generate.component';
+import ArtifactUpload from './components/dashboard/artifacts/artifacts-upload.component';
+import ArtifactAblum from './components/dashboard/artifacts/artifacts-album.component';
+import ArtifactView from './components/dashboard/artifacts/artifacts-view.component';
+import HomeNav from './components/homepage/navbar/homeNav';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -33,23 +37,33 @@ if (localStorage.jwtToken) {
     window.location.href = "./login";
   }
 }
+
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
         <Router>
-          <div className="App">
-            {/* <Navbar /> */}
-            {/* <Route exact path="/" component={Landing} /> */}
+          <Switch>
+            <div >
+              <div>
+                <HomeNav/>
+              </div>
+              <Route exact path="/" component={LandingPage} />
+              <Route path="/aboutme" component={AboutMe} />
+              <Route path="/contactUs" component={ContactUs} />
+              <Route path="/contact" component={Contact} /> 
+            </div>
+    
+            <Route exact path="/login" component={Login} />   
             <Route exact path="/register" component={GenerateAccount} />
-            <Route exact path="/login" component={Login} />
-            {/* <Switch>
-              <PrivateRoute exact path="/navbar" component={Navbar} />
-            </Switch> */}
-          </div>
+    
+          
+            {/* <PrivateRoute exact path="/navbar" component={Navbar} />  */}
+          </Switch>
         </Router>
       </Provider>
-    );
+    )
+
   }
 }
 

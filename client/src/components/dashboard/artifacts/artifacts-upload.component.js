@@ -14,6 +14,8 @@ class ArtifactUpload extends Component {
 
   fileUploadHandler = () => {
     const newInput = new FormData();
+
+
     newInput.append('image',this.state.selectedFile, this.state.selectedFile.name);
     axios.post('http://localhost:5000/uploadArtifacts/', newInput)
       .then(res => {
