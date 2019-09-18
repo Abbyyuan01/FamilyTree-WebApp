@@ -22,9 +22,8 @@ class DashboardNav extends Component {
                 <Link to="/dashboard/">AtifactView</Link>
                 <Link to="/dashboard/timeline">Timeline</Link>
               </Navigation>
-
             </Header>
-            {/* <Drawer
+            <Drawer
               title={
                 <Link style={{ textDecoration: "none", color: "black" }} to="/">
                   Family Tree
@@ -32,12 +31,10 @@ class DashboardNav extends Component {
               }
             >
               <Navigation>
-                <Link to="/aboutme">About Me</Link>
-                <Link to="/projects">Projects</Link>
-                <Link to="/contact">Contact</Link>
-                <Link to="/contactus">Contact Us</Link>
+                <Link to="/dashboard/upload"> Upload Artifacts</Link>
+                
               </Navigation>
-            </Drawer> */}
+            </Drawer>
             <Content>
               <div className="page-content" />
               {this.props.children}
