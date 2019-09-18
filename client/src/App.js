@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Switch, Route, withRouter} from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  withRouter
+} from "react-router-dom";
 import React, { Component } from "react";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
@@ -11,14 +16,14 @@ import LandingPage from "./components/homepage/landingpage";
 import AboutMe from "./components/homepage/aboutme";
 import Contact from "./components/homepage/contact";
 import ContactUs from "./components/homepage/contactus";
-import Login from './components/authentication/login.component';
-import GenerateAccount from './components/authentication/generate.component';
-import ArtifactUpload from './components/dashboard/artifacts/artifacts-upload.component';
-import ArtifactAblum from './components/dashboard/artifacts/artifacts-album.component';
-import ArtifactView from './components/dashboard/artifacts/artifacts-view.component';
-import Timeline from './components/dashboard/artifacts/artifacts-timeline.component';
-import HomeNav from './components/homepage/navbar/homeNav';
-import DashboardNav from './components/dashboard/navbar/dashboardNav';
+import Login from "./components/authentication/login.component";
+import GenerateAccount from "./components/authentication/generate.component";
+import ArtifactUpload from "./components/dashboard/artifacts/artifacts-upload.component";
+import ArtifactAblum from "./components/dashboard/artifacts/artifacts-album.component";
+import ArtifactView from "./components/dashboard/artifacts/artifacts-view.component";
+import Timeline from "./components/dashboard/artifacts/artifacts-timeline.component";
+import HomeNav from "./components/homepage/navbar/homeNav";
+import DashboardNav from "./components/dashboard/navbar/dashboardNav";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -45,37 +50,30 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-        <ScrollToTopWithRouter>
-          <Switch>     
-            <Route exact path="/" component={LandingPage} />
-            <Route exact path="/aboutme" component={AboutMe} />
-            <Route exact path="/contactUs" component={ContactUs} />
-            <Route exact path="/contact" component={Contact} /> 
-            <Route exact path="/login" component={Login} />   
-            <Route exact path="/register" component={GenerateAccount} /> 
-            
-            <Route
-              path="/dashboard"
-              render={({ match: { path } }) => (
-                  <DashboardNav>
-                  <Route exact path={`${path}/`} component={ArtifactView} />
-                  <Route
-                    path={`${path}/upload`}
-                    component={ArtifactUpload}
-                  />
-                  <Route
-                    path={`${path}/timeline`}
-                    component={Timeline}
-                  />  
-                  </DashboardNav>         
-              )}
-            />
-          </Switch>
-          </ScrollToTopWithRouter>
-        </Router>       
-      </Provider>
-    )
+          <ScrollToTopWithRouter>
+            <Switch>
+              <Route exact path="/" component={LandingPage} />
+              <Route exact path="/aboutme" component={AboutMe} />
+              <Route exact path="/contactUs" component={ContactUs} />
+              <Route exact path="/contact" component={Contact} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/register" component={GenerateAccount} />
 
+              <Route
+                path="/dashboard"
+                render={({ match: { path } }) => (
+                  <DashboardNav>
+                    <Route exact path={`${path}/`} component={ArtifactView} />
+                    <Route path={`${path}/upload`} component={ArtifactUpload} />
+                    <Route path={`${path}/timeline`} component={Timeline} />
+                  </DashboardNav>
+                )}
+              />
+            </Switch>
+          </ScrollToTopWithRouter>
+        </Router>
+      </Provider>
+    );
   }
 }
 
@@ -94,4 +92,3 @@ class ScrollToTop extends React.Component {
 }
 
 const ScrollToTopWithRouter = withRouter(ScrollToTop);
-
