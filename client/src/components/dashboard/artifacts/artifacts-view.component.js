@@ -52,7 +52,7 @@ class ArtifactView extends Component {
           
         } 
        
-        this.handleClick = this.handleClick.bind(this);
+        // this.handleClick = this.handleClick.bind(this);
     }
 
     //load before everything
