@@ -90,9 +90,9 @@ class ArtifactView extends Component {
       this.setState({ photoIndex: num, imageOpen: !this.state.imageOpen });
     };
 
-    handleClick(){
-      this.props.history.push("/dashboard/upload");
-    }
+    // handleClick(){
+    //   this.props.history.push("/dashboard/upload");
+    // }
 
     render (){
         const classes = this.props;
@@ -101,13 +101,13 @@ class ArtifactView extends Component {
             <div className={classes.root}>
               <Container maxWidth="lg">
                   <div className={classes.root}>
-                      <Button variant="contained" 
+                      {/* <Button variant="contained" 
                               color="primary" 
                               className={classes.button}
                               onClick={this.handleClick}
                             >
                         Upload Artifacts
-                      </Button>
+                      </Button> */}
                   </div>
                   <div className={classes.root}>
                   <Waypoint
