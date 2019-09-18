@@ -69,9 +69,9 @@ class GenerateAccount extends Component {
 
     componentDidMount() {
         // If logged in and user navigates to Register page, should redirect them to dashboard
-        // if (this.props.auth.isAuthenticated) {
-        //   this.props.history.push("/navbar");
-        // }
+        if (this.props.auth.isAuthenticated) {
+          this.props.history.push("/register");
+        }
       }
     
     componentWillReceiveProps(nextProps) {

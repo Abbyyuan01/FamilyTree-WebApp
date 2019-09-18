@@ -35,8 +35,10 @@ mongoose.connect(uri, options).then(
 
 //Routes Setup
 const artifactRouter = require('./routes/artifact.route');
+const userRouter = require('./routes/user.route')
 
 app.use('/', artifactRouter);
+app.use('/', userRouter);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

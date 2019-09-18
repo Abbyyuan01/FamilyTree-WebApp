@@ -165,6 +165,8 @@ class ArtifactView extends Component {
                     photoIndex: (this.state.photoIndex + 1) % this.state.artifacts.length
                   })
                 }
+                imageTitle={this.state.artifacts[this.state.photoIndex].name}
+                imageCaption={this.state.artifacts[this.state.photoIndex].description}
               />
             ) : null}
             </div>
