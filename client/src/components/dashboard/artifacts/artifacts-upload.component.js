@@ -36,17 +36,16 @@ const useStyles = theme => ({
   },
 });
 
+
 class ArtifactUpload extends Component {
 
   state = {
-    name : null,
+    name : 'Please enter name of artifact here',
     url : null,
     description : null,
-    editTime : null,
-    tag : null,
+    tag : 'Please enter tag here',
     category : null,
-    artifactTime : null,
-    userID : null,
+    artifactTime : new Date(),
     visibility : null
   }
 
@@ -54,15 +53,29 @@ class ArtifactUpload extends Component {
     this.setState({
       url: URL.createObjectURL(event.target.files[0])
     })
-  }
+  };
+
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value
+    })
+    // setValues({...values,[name]: event.target.value});
+  };
+
+  handleTimeChange = date => {
+    this.setState ({
+      artifactTime: date
+    });
+  };
 
   fileUploadHandler = () => {
-    const newInput = new FormData();
-    newInput.append('image',this.state.url);
-    axios.post('http://localhost:5000/uploadArtifacts/', newInput)
+    //const newInput = new FormData();
+    //newInput.append('url',url);
+
+    axios.post('http://localhost:5000/uploadArtifacts/', this.state)
       .then(res => {
         console.log(res);
-        console.log("successful!")
+        console.log("newInput")
       }).catch(err=>{
         console.log(err)
       });
@@ -79,6 +92,7 @@ class ArtifactUpload extends Component {
             label="Artifact Name"
             className={classes.textField}
             value={this.state.name}
+            onChange={this.handleChange('name')}
             margin="normal"
           />
           <input type="file" onChange={this.fileSelectedHandler}/>
@@ -92,6 +106,7 @@ class ArtifactUpload extends Component {
               id="ArtifactDate"
               label="Artifact Date"
               value={this.state.artifactTime}
+              onChange={this.handleTimeChange}
               KeyboardButtonProps={{
                 'aria-label': 'change date',
               }}
@@ -102,6 +117,7 @@ class ArtifactUpload extends Component {
             label="Tag"
             className={classes.textField}
             value={this.state.tag}
+            onChange={this.handleChange('tag')}
             margin="normal"
           />
           <TextField
@@ -110,13 +126,14 @@ class ArtifactUpload extends Component {
             multiline
             rowsMax="4"
             value={this.state.description}
+            onChange={this.handleChange('description')}
             className={classes.textField}
             margin="normal"
             helperText="Please enter description above"
             variant="outlined"
           />
         </form>
-        <button onClick={this.fileUploadHandler}>Upload</button>
+        <button onClick={this.fileUploadHandler}>Submit</button>
       </div>
 
     );

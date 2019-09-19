@@ -46,5 +46,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@material-ui/pickers": "^3.2.6",
+    "prop-types": "^15.7.2"
   }
 }
