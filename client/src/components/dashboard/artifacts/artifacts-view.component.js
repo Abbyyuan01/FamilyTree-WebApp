@@ -122,15 +122,15 @@ class ArtifactView extends Component {
                       </GridListTile> */}
                       {this.state.artifacts.map((artifact,index) => (
                       <GridListTile key={artifact._id + index}>
-                          <img src={artifact.url} alt={artifact.name} />{" "}
+                          <img src={artifact.url} alt={artifact.name} onClick={() => {
+                                this.imageToggle(index);
+                              }}/>{" "}
                           <GridListTileBar
                           title={artifact.name}
                           subtitle={<span>by: {artifact.userID}</span>}
                           actionIcon={
                               <IconButton aria-label={`info about ${artifact.name}`} className={classes.icon}
-                              onClick={() => {
-                                this.imageToggle(index);
-                              }}>
+                              >
                               <InfoIcon />
                               </IconButton>
                           }
