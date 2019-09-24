@@ -102,15 +102,7 @@ class ArtifactView extends Component {
 
     render (){
         const classes = this.props;
-        const [anchorEl, setAnchorEl] = React.useState(null);
 
-        const handleClick = event => {
-          setAnchorEl(event.currentTarget);
-        };
-      
-        const handleClose = () => {
-          setAnchorEl(null);
-        };
 
         const singleArtifactButtons  =  [
           <IconButton aria-label="like" className={classes.margin}  onClick={this.handleLike}>
@@ -190,9 +182,10 @@ class ArtifactView extends Component {
                     photoIndex: (this.state.photoIndex + 1) % this.state.artifacts.length
                   })
                 }
-                imageTitle={
-                  <p>{this.state.artifacts[this.state.photoIndex].name} - 
-                  By {this.state.artifacts[this.state.photoIndex].userID}</p>
+                imageTitle={`
+                  ${this.state.artifacts[this.state.photoIndex].name} - 
+                  By ${this.state.artifacts[this.state.photoIndex].userID}
+                  `
                 }
                 imageCaption={
                   <div>
