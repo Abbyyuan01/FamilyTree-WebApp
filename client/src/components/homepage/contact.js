@@ -1,3 +1,6 @@
+//contact.js is a page that displays all the contact information of the Family Tree creaters so clients may get in touch
+//to solve any problems or create new accounts
+
 import React, { Component } from "react";
 import { Grid, Cell, List, ListItem, ListItemContent } from "react-mdl";
 import HomeNav from './navbar/homeNav';
