@@ -1,3 +1,7 @@
+//aboutme.js showcases the team and their work and effort put into the project. It is still a work in progress as it is bugged and may
+//have to be removed depending on client feedback. aboutme.js would most likely be changed to a list of steps the user can take to
+//create their own family tree profile for themselves and their family members.
+
 import React, { Component } from "react";
 import HomeNav from './navbar/homeNav';
 
