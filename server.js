@@ -3,22 +3,19 @@ var cors = require('cors');
 var app = express();
 const multer = require('multer');
 const mongoose = require('mongoose');
+const path = require('path');
 
-// midware use
+
+// middleware use
 app.use(cors());
 app.use(express.json());
 
 // set view engine
 
 
-// TODO: use config to set db uri ---Abby
-// TODO: set test enviroment port ---Abby
-
 //connect to mongoab
-const uri = "mongodb+srv://ghostzen:ghostzen111@cluster0-tvhfs.gcp.mongodb.net/familytree?retryWrites=true&w=majority";
-//const testUri = "mongodb+srv://ghostzen:ghostzen111@cluster0-tvhfs.gcp.mongodb.net/test?retryWrites=true&w=majority";
+const uri = process.env.MONGODB_URI || "mongodb+srv://ghostzen:ghostzen111@cluster0-tvhfs.gcp.mongodb.net/familytree?retryWrites=true&w=majority";
 //const uri = "mongodb://localhost:27017/familytree"
-//const uri = "mongodb://localhost:27017/test"
 
 const options = {
     useNewUrlParser: true
@@ -39,6 +36,16 @@ const userRouter = require('./routes/user.route')
 
 app.use('/', artifactRouter);
 app.use('/', userRouter);
+
+// Serve static assets if in production
+if (process.env.NODE_ENV === 'production') {
+    // Set static folder
+    app.use(express.static( 'client/build' ));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
+    });
+}
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

@@ -24,7 +24,8 @@
     "react-scripts": "3.1.1",
     "react-waypoint": "^9.0.2",
     "redux": "^4.0.4",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "prop-types": "^15.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -47,8 +48,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@material-ui/pickers": "^3.2.6",
-    "prop-types": "^15.7.2"
-  }
+  "proxy": "http://localhost:5000"
 }

@@ -57,7 +57,7 @@ class ArtifactView extends Component {
 
     //load before everything
     componentDidMount() {
-        axios.get('http://localhost:5000/artifacts/')
+        axios.get('/artifacts/')
           .then(response => {
               if (response.data.length > 0) {
                   this.setState({

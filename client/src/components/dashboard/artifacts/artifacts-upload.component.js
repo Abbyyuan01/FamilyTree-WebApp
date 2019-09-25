@@ -72,7 +72,7 @@ class ArtifactUpload extends Component {
     //const newInput = new FormData();
     //newInput.append('url',url);
 
-    axios.post('http://localhost:5000/uploadArtifacts/', this.state)
+    axios.post('/uploadArtifacts/', this.state)
       .then(res => {
         console.log(res);
         console.log("newInput")
