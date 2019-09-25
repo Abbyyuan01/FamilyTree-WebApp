@@ -7,10 +7,15 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import Container from '@material-ui/core/Container';
-import axios from 'axios'
+import axios from 'axios';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
 import Lightbox from "react-image-lightbox";
+import LikeIcon from "@material-ui/icons/FavoriteBorder"
+import LikedIcon from "@material-ui/icons/Favorite"
+import ShareIcon from "@material-ui/icons/Share";
+import Popover from '@material-ui/core/Popover';
 import {Waypoint} from "react-waypoint";
 import Slide from "@material-ui/core/Slide";
 import "react-image-lightbox/style.css";
@@ -49,10 +54,11 @@ class ArtifactView extends Component {
           snackOpen: true,
           width: window.innerWidth,
           height: window.innerHeight,
+
           
         } 
        
-        // this.handleClick = this.handleClick.bind(this);
+        this.handleLike = this.handleLike.bind(this);
     }
 
     //load before everything
@@ -90,12 +96,22 @@ class ArtifactView extends Component {
       this.setState({ photoIndex: num, imageOpen: !this.state.imageOpen });
     };
 
-    // handleClick(){
-    //   this.props.history.push("/dashboard/upload");
-    // }
+    handleLike(){
+      console.log("like");
+    }
 
     render (){
         const classes = this.props;
+
+
+        const singleArtifactButtons  =  [
+          <IconButton aria-label="like" className={classes.margin}  onClick={this.handleLike}>
+            <LikeIcon color="secondary"/>
+          </IconButton>,
+          <IconButton aria-label="share" className={classes.margin}  onClick={this.handleShare}>
+            <ShareIcon color="primary"/>
+          </IconButton>    
+        ];
 
         return (
             <div className={classes.root}>
@@ -152,6 +168,7 @@ class ArtifactView extends Component {
                     (this.state.photoIndex + this.state.artifacts.length - 1) % this.state.artifacts.length
                   ].url
                 }
+
                 onCloseRequest={() => this.setState({ imageOpen: false })}
                 onMovePrevRequest={() =>
                   this.setState({
@@ -165,8 +182,24 @@ class ArtifactView extends Component {
                     photoIndex: (this.state.photoIndex + 1) % this.state.artifacts.length
                   })
                 }
-                imageTitle={this.state.artifacts[this.state.photoIndex].name}
-                imageCaption={this.state.artifacts[this.state.photoIndex].description}
+                imageTitle={`
+                  ${this.state.artifacts[this.state.photoIndex].name} - 
+                  By ${this.state.artifacts[this.state.photoIndex].userID}
+                  `
+                }
+                imageCaption={
+                  <div>
+                     <Typography variant="body1" gutterBottom>
+                     {this.state.artifacts[this.state.photoIndex].description}
+                     </Typography>
+                     <Typography variant="subtitle2" gutterBottom>
+                     {this.state.artifacts[this.state.photoIndex].artifactTime}
+                     </Typography>
+                  </div> 
+                                            
+                  }
+                  toolbarButtons={singleArtifactButtons}
+                
               />
             ) : null}
             </div>
