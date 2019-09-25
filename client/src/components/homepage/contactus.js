@@ -1,3 +1,6 @@
+//contactus.js is a contact page that allows the user to send a contact form to the Family Tree creators. The user will need to input
+//their full name, email, phone number and message for the team. 
+
 import React, { Component } from "react";
 import HomeNav from './navbar/homeNav';
 
