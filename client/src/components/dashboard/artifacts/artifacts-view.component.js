@@ -143,7 +143,7 @@ class ArtifactView extends Component {
                               }}/>{" "}
                           <GridListTileBar
                           title={artifact.name}
-                          subtitle={<span>by: {artifact.userID}</span>}
+                          subtitle={<span>by: {artifact.user.username}</span>}
                           actionIcon={
                               <IconButton aria-label={`info about ${artifact.name}`} className={classes.icon}
                               >
@@ -184,7 +184,7 @@ class ArtifactView extends Component {
                 }
                 imageTitle={`
                   ${this.state.artifacts[this.state.photoIndex].name} - 
-                  By ${this.state.artifacts[this.state.photoIndex].userID}
+                  By ${this.state.artifacts[this.state.photoIndex].user.username}
                   `
                 }
                 imageCaption={

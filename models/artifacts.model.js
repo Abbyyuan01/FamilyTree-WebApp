@@ -11,7 +11,10 @@ const artifactSchema = new mongoose.Schema({
     "tag": String,
     "category": String,
     "artifactTime": Date,
-    "userID": String,
+    "user": {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     "visibility": Boolean
 });
 

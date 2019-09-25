@@ -1,5 +1,6 @@
 const router = require('express').Router()
 let Artifact = require('../models/artifacts.model')
+const User = require('../models/user.model')
 const multer = require('multer');
 
 const storage = multer.diskStorage({
@@ -29,6 +30,10 @@ const upload = multer({
 
 //upload artifacts
 router.post('/uploadArtifacts',upload.single('image'), async (req, res) => {
+
+    const user = await User.findById(req.body.user._id)
+    if (!user) return res.status(400).send('Invalid user.');
+    
     const newArtifact = new Artifact({
         "name": req.body.name,
         "url": req.body.url,
@@ -37,7 +42,10 @@ router.post('/uploadArtifacts',upload.single('image'), async (req, res) => {
         "tag": req.body.tag,
         "category": req.body.category,
         "artifactTime": req.body.artifactTime,
-        "userID": req.body.userID,
+        "user": {
+            _id: user._id,
+            username: user.username
+        },
         "visibility": req.body.visibility
     });
 
@@ -49,6 +57,7 @@ router.post('/uploadArtifacts',upload.single('image'), async (req, res) => {
 //get all artifacts
 router.get('/artifacts', async (req, res) => {
     await Artifact.find()
+        .populate('user','username')
         .then(artifacts => res.json(artifacts))
         .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -56,6 +65,7 @@ router.get('/artifacts', async (req, res) => {
 //get artifacts by id
 router.get('/artifacts/:id', async (req, res) => {
     await Artifact.findById(req.params.id)
+        .populate('user','username')
         .then(artifacts => res.json(artifacts))
         .catch(err => res.status(400).json('Error: ' + err));
 });

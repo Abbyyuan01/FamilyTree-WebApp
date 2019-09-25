@@ -1,3 +1,6 @@
+//landingpage.js showcases the home page that viewers will see before they login to view artifacts. The landing page is still a work in
+//progress but it is most likely to showcase the highlights of Family Tree either in word form or in video form, for ease of the user.
+
 import React, { Component } from "react";
 import { Grid, Cell } from "react-mdl";
 import HomeNav from './navbar/homeNav';
