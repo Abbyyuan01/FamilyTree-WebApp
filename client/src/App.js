@@ -48,6 +48,9 @@ if (localStorage.jwtToken) {
 }
 
 class App extends Component {
+  /**
+   * page router
+   */
   render() {
     return (
       <Provider store={store}>

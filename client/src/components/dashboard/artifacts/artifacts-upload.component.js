@@ -46,13 +46,16 @@ class ArtifactUpload extends Component {
     tag : 'Please enter tag here',
     category : null,
     artifactTime : new Date(),
+    user: null,
     visibility : null
   }
 
   fileSelectedHandler = event => {
     this.setState({
-      url: URL.createObjectURL(event.target.files[0])
+      url: URL.createObjectURL(event.target.files[0])  
     })
+    console.log(this.context)
+    console.log(this.state)
   };
 
   handleChange = name => event => {
@@ -71,11 +74,24 @@ class ArtifactUpload extends Component {
   fileUploadHandler = () => {
     //const newInput = new FormData();
     //newInput.append('url',url);
+    const artifact = {
+      name:this.state.name,
+      url : this.state.url,
+      description : this.state.description,
+      tag : this.state.tag,
+      category : this.state.category,
+      artifactTime : this.state.artifactTime,
+      user: this.context.user.username,
+      visibility : this.state.visibility
 
-    axios.post('/uploadArtifacts/', this.state)
+    }
+
+    axios.post('/uploadArtifacts/', artifact)
       .then(res => {
         console.log(res);
         console.log("newInput")
+        console.log(this.context)
+        console.log(this.state)
       }).catch(err=>{
         console.log(err)
       });

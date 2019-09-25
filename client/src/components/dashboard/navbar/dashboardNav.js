@@ -1,3 +1,6 @@
+/**
+ * dashboard navbar: navigation
+ */
 import React, { Component } from "react";
 import "../../../css/App.css";
 import { Layout, Header, Navigation, Drawer, Content} from "react-mdl";

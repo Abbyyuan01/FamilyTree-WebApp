@@ -1,3 +1,7 @@
+/**
+ * artifactview component: view all artifacts and view one artifact 
+ * and information of that artifact
+ */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import GridList from '@material-ui/core/GridList';
@@ -117,13 +121,6 @@ class ArtifactView extends Component {
             <div className={classes.root}>
               <Container maxWidth="lg">
                   <div className={classes.root}>
-                      {/* <Button variant="contained" 
-                              color="primary" 
-                              className={classes.button}
-                              onClick={this.handleClick}
-                            >
-                        Upload Artifacts
-                      </Button> */}
                   </div>
                   <div className={classes.root}>
                   <Waypoint
