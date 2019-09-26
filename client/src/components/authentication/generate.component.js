@@ -1,5 +1,5 @@
 /**
- * generate account component: generate account
+ * generate account component: generate account allows users to create new accounts
  */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
