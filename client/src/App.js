@@ -1,3 +1,5 @@
+//app.js is the initial root file in any NodeJS project.
+
 import {
   BrowserRouter as Router,
   Switch,
