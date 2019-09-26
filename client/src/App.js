@@ -19,7 +19,6 @@ import ContactUs from "./components/homepage/contactus";
 import Login from "./components/authentication/login.component";
 import GenerateAccount from "./components/authentication/generate.component";
 import ArtifactUpload from "./components/dashboard/artifacts/artifacts-upload.component";
-import ArtifactAblum from "./components/dashboard/artifacts/artifacts-album.component";
 import ArtifactView from "./components/dashboard/artifacts/artifacts-view.component";
 import Timeline from "./components/dashboard/artifacts/artifacts-timeline.component";
 import HomeNav from "./components/homepage/navbar/homeNav";
