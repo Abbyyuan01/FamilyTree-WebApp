@@ -27,7 +27,6 @@ import HomeNav from "./components/homepage/navbar/homeNav";
 import DashboardNav from "./components/dashboard/navbar/dashboardNav";
 
 
-
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -42,6 +41,7 @@ if (localStorage.jwtToken) {
   if (decoded.exp < currentTime) {
     // Logout user
     store.dispatch(logoutUser());
+    console.log("log out")
 
     // Redirect to login
     window.location.href = "./login";
@@ -56,27 +56,32 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
+        <div>
           <ScrollToTopWithRouter>
             <Switch>
-              <Route exact path="/" component={LandingPage} />
-              <Route exact path="/aboutme" component={AboutMe} />
-              <Route exact path="/contactUs" component={ContactUs} />
-              <Route exact path="/contact" component={Contact} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={GenerateAccount} />
+              <Route exact path="/" component={props => <LandingPage {...props} />} />
+              <Route exact path="/aboutme" component={props => <AboutMe {...props} />} />
+              <Route exact path="/contactus" component={props => <ContactUs {...props} />} />
+              <Route exact path="/contact" component={props => <Contact {...props} />} />
+              <Route exact path="/login" component={props => <Login {...props} />} />
+              <Route exact path="/register" component={props => <GenerateAccount {...props} />} />
+            </Switch>
 
-              <Route
-                path="/dashboard"
-                render={({ match: { path } }) => (
+            <Switch>
+              <PrivateRoute
+                exact path="/dashboard"
+                component={({ match: { path } }) => (
                   <DashboardNav>
-                    <Route exact path={`${path}/`} component={ArtifactView} />
-                    <Route path={`${path}/upload`} component={ArtifactUpload} />
-                    <Route path={`${path}/timeline`} component={Timeline} />
+                    <Route exact path={`${path}/`} component={props => <ArtifactView {...props} />}/>
+                    <Route path={`${path}/upload`} component={props => <ArtifactUpload {...props} />} />
+                    <Route path={`${path}/timeline`} component={props => <Timeline {...props} />} />
                   </DashboardNav>
                 )}
               />
             </Switch>
+
           </ScrollToTopWithRouter>
+          </div>
         </Router>
       </Provider>
     );

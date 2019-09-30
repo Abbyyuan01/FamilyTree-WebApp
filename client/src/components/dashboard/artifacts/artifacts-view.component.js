@@ -57,9 +57,7 @@ class ArtifactView extends Component {
           imageOpen: false,
           snackOpen: true,
           width: window.innerWidth,
-          height: window.innerHeight,
-
-          
+          height: window.innerHeight,    
         } 
        
         this.handleLike = this.handleLike.bind(this);

@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
@@ -72,12 +73,12 @@ class Login extends Component {
 
     }
 
-    // componentDidMount() {
-    //   // If logged in and user navigates to Login page, should redirect them to dashboard
-    //   if (this.props.auth.isAuthenticated) {
-    //     this.props.history.push("/dashboard");
-    //   }
-    // }
+    componentDidMount() {
+      // If logged in and user navigates to Login page, should redirect them to dashboard
+      if (this.props.auth.isAuthenticated) {
+        this.props.history.push("/dashboard");
+      }
+    }
   
     componentWillReceiveProps(nextProps) {
       if (nextProps.auth.isAuthenticated) {
@@ -140,14 +141,15 @@ class Login extends Component {
                         invalid: errors.email || errors.emailnotfound
                       })}
                   />
-                    <span className="red-text">
+                  <FormHelperText id="component-error-text" >
                     {errors.email}
                     {errors.emailnotfound}
-                    </span>
+                  </FormHelperText>  
+
                   <TextField
                       onChange={this.onChange}
                       value={this.state.password}
-                      // error={errors.password}
+                      error={errors.password}
                       variant="outlined"
                       margin="normal"
                       required
@@ -161,10 +163,11 @@ class Login extends Component {
                         invalid: errors.password || errors.passwordincorrect
                       })}
                   />
-                    <span className="red-text">
-                    {errors.password}
-                    {errors.passwordincorrect}
-                    </span>
+                  <FormHelperText id="component-error-text">
+                  {errors.password}
+                  {errors.passwordincorrect}
+                  </FormHelperText>  
+                  
                   <FormControlLabel
                       control={<Checkbox value="remember" color="primary" />}
                       label="Remember me"
@@ -185,7 +188,7 @@ class Login extends Component {
                       </Link>
                       </Grid>
                       <Grid item>
-                      <Link href="#" variant="body2">
+                      <Link href="/register" variant="body2">
                           {"Don't have an account? Sign Up"}
                       </Link>
                       </Grid>

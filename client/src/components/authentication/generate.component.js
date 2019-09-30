@@ -5,10 +5,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
@@ -73,7 +75,7 @@ class GenerateAccount extends Component {
     componentDidMount() {
         // If logged in and user navigates to Register page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
-          this.props.history.push("/register");
+          this.props.history.push("/dashboard");
         }
       }
     
@@ -134,7 +136,7 @@ class GenerateAccount extends Component {
                         invalid: errors.username
                       })}     
                   />
-                  <span className="red-text">{errors.name}</span>
+                  <FormHelperText id="component-error-text">{errors.name}</FormHelperText>
                   <TextField
                       onChange={this.onChange}
                       value={this.state.email}
@@ -152,8 +154,7 @@ class GenerateAccount extends Component {
                         invalid: errors.email
                       })}  
                   />
-                  <span className="red-text">{errors.email}</span>
-
+                  <FormHelperText id="component-error-text">{errors.email}</FormHelperText>
                   <TextField
                       onChange={this.onChange}
                       value={this.state.password}
@@ -171,8 +172,7 @@ class GenerateAccount extends Component {
                         invalid: errors.password
                       })}          
                   />
-                  <span className="red-text">{errors.password}</span>
-              
+                  <FormHelperText id="component-error-text">{errors.password}</FormHelperText>
                   <Button
                       type="submit"
                       fullWidth
@@ -182,6 +182,13 @@ class GenerateAccount extends Component {
                   >
                       Generate Account
                   </Button>
+                  <Grid container>
+                      <Grid item xs>
+                      <Link href="/" variant="body1">
+                          Back to Home
+                      </Link>
+                      </Grid>
+                  </Grid>
                   </form>
               </div>
               <Box mt={8}>
