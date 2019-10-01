@@ -2,14 +2,10 @@
 //their full name, email, phone number and message for the team. 
 
 import React, { Component } from "react";
-import HomeNav from './navbar/homeNav';
 
 class ContactUs extends Component {
   render() {
     return (
-      <div>
-       <HomeNav />
-       <br/>
       <div class="contact-form">
         <h1>Contact Us</h1>
         <div class="txtb">
@@ -44,7 +40,6 @@ class ContactUs extends Component {
           <textarea></textarea>
         </div>
         <a class="btn">Send</a>
-      </div>
       </div>
     );
   }

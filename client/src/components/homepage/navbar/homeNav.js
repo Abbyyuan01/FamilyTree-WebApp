@@ -109,10 +109,10 @@ class HomeNav extends Component {
               <Link to="/register">Register</Link>
             </Navigation>
           </Drawer>{" "}
-          {/* <Content>
+          <Content>
               <div className="page-content" />
               {this.props.children}
-            </Content> */}
+            </Content>
         </Layout>
       </div>
     );

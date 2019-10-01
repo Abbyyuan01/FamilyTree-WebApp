@@ -59,17 +59,24 @@ class App extends Component {
         <div>
           <ScrollToTopWithRouter>
             <Switch>
-              <Route exact path="/" component={props => <LandingPage {...props} />} />
-              <Route exact path="/aboutme" component={props => <AboutMe {...props} />} />
-              <Route exact path="/contactus" component={props => <ContactUs {...props} />} />
-              <Route exact path="/contact" component={props => <Contact {...props} />} />
-              <Route exact path="/login" component={props => <Login {...props} />} />
-              <Route exact path="/register" component={props => <GenerateAccount {...props} />} />
+            <Route
+                path="/"
+                component={({ match: { path } }) => (
+                <HomeNav>
+                  <Route exact path={`${path}`}  component={props => <LandingPage {...props} />} />
+                  <Route exact path={`${path}aboutme`}  component={props => <AboutMe {...props} />} />
+                  <Route exact path={`${path}contactus`} component={props => <ContactUs {...props} />} />
+                  <Route exact path={`${path}contact`} component={props => <Contact {...props} />} />    
+                  <Route exact path="/login" component={props => <Login {...props} />} />
+                  <Route exact path="/register" component={props => <GenerateAccount {...props} />} />
+                </HomeNav>  
+                )}
+              />
             </Switch>
 
             <Switch>
               <PrivateRoute
-                exact path="/dashboard"
+                path="/dashboard"
                 component={({ match: { path } }) => (
                   <DashboardNav>
                     <Route exact path={`${path}/`} component={props => <ArtifactView {...props} />}/>
@@ -79,7 +86,6 @@ class App extends Component {
                 )}
               />
             </Switch>
-
           </ScrollToTopWithRouter>
           </div>
         </Router>

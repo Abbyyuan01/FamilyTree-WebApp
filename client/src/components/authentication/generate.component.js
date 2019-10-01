@@ -35,7 +35,7 @@ function Copyright() {
 
 const styles = theme => ({
   root: {
-      backgroundColor: theme.palette.common.white,
+      // backgroundColor: theme.palette.common.white,
       alignItems: 'center',
       display: 'flex'
     },
@@ -172,7 +172,7 @@ class GenerateAccount extends Component {
                         invalid: errors.password
                       })}          
                   />
-                  <FormHelperText id="component-error-text">{errors.password}</FormHelperText>
+                  <FormHelperText id="component-error-text" variant="body1">{errors.password}</FormHelperText>
                   <Button
                       type="submit"
                       fullWidth

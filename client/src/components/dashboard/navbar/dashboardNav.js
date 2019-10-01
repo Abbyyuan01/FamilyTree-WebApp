@@ -56,9 +56,9 @@ class DashboardNav extends Component {
               }
               scroll
             >
-              <Navigation>
-                <Link to="/dashboard/upload"> Upload Artifacts</Link>
+              <Navigation>         
                 <Link to="/dashboard/">AtifactView</Link>
+                <Link to="/dashboard/upload"> Upload Artifacts</Link>
                 <Link to="/dashboard/timeline">Timeline</Link>
                 <div>
                   <IconButton
@@ -100,9 +100,9 @@ class DashboardNav extends Component {
                 </Link>
               }
             >
-              <Navigation>
-                <Link to="/dashboard/upload"> Upload Artifacts</Link>
+              <Navigation>            
                 <Link to="/dashboard/">AtifactView</Link>
+                <Link to="/dashboard/upload"> Upload Artifacts</Link>
                 <Link to="/dashboard/timeline">Timeline</Link>
               </Navigation>
             </Drawer>

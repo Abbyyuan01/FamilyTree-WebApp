@@ -3,14 +3,10 @@
 
 import React, { Component } from "react";
 import { Grid, Cell } from "react-mdl";
-import HomeNav from './navbar/homeNav';
 
 class Landing extends Component {
   render() {
     return (
-      <div>
-         <HomeNav />
-         <br/>
       <div style={{ width: "100%", margin: "auto" }}>
         <Grid className="landing-grid">
           <Cell col={12}>
@@ -67,7 +63,6 @@ class Landing extends Component {
             </div>
           </Cell>
         </Grid>
-      </div>
       </div>
     );
   }

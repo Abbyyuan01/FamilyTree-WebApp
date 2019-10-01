@@ -37,7 +37,7 @@ function Copyright() {
 
 const styles = theme => ({
   root: {
-      backgroundColor: theme.palette.common.white,
+      // backgroundColor: theme.palette.common.white,
       alignItems: 'center',
       display: 'flex'
     },
@@ -181,7 +181,7 @@ class Login extends Component {
                   >
                       Log In
                   </Button>
-                  <Grid container>
+                  {/* <Grid container>
                       <Grid item xs>
                       <Link href="#" variant="body2">
                           Forgot password?
@@ -192,6 +192,11 @@ class Login extends Component {
                           {"Don't have an account? Sign Up"}
                       </Link>
                       </Grid>
+                  </Grid> */}
+                  <Grid item xs>
+                      <Link href="/" variant="body1">
+                          Back to Home
+                      </Link>
                   </Grid>
                   </form>
               </div>
