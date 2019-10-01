@@ -31,20 +31,20 @@ const styles = theme => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    backgroundColor: "#f3f3f3",
+    margin: theme.spacing(5)
   },
   gridList: {
-    width: 500,
-    height: 600,
+    width: 'flex',
+    height:'flex',
+    // backgroundColor: "#f3f3f3",
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
   },
-  button: {
-    padding: '30px',
-    margin: theme.spacing(1)
-  }
-
+  // button: {
+  //   padding: '30px',
+  //   margin: theme.spacing(1)
+  // }
 })
 
 class ArtifactView extends Component {
@@ -103,8 +103,7 @@ class ArtifactView extends Component {
     }
 
     render (){
-        const classes = this.props;
-
+        const {classes, theme} = this.props;
 
         const singleArtifactButtons  =  [
           <IconButton aria-label="like" className={classes.margin}  onClick={this.handleLike}>
@@ -117,41 +116,38 @@ class ArtifactView extends Component {
 
         return (
             <div className={classes.root}>
-              <Container maxWidth="lg">
-                  <div className={classes.root}>
-                  </div>
-                  <div className={classes.root}>
+              {/* <Container component="main" maxWidth="lg"> */}
                   <Waypoint
-                    onEnter={() => {
-                      this.setState({ entered: true });
-                    }}
-                  />
-                  <Slide direction={"left"} in={this.state.entered}>
-                  <GridList cellHeight={300} className={classes.gridList} cols={4} spacing={30}>
-                      {/* <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-                      <ListSubheader component="div">December</ListSubheader>
-                      </GridListTile> */}
-                      {this.state.artifacts.map((artifact,index) => (
-                      <GridListTile key={artifact._id + index}>
-                          <img src={artifact.url} alt={artifact.name} onClick={() => {
-                                this.imageToggle(index);
-                              }}/>{" "}
-                          <GridListTileBar
-                          title={artifact.name}
-                          subtitle={<span>by: {artifact.user.username}</span>}
-                          actionIcon={
-                              <IconButton aria-label={`info about ${artifact.name}`} className={classes.icon}
-                              >
-                              <InfoIcon />
-                              </IconButton>
-                          }
-                          />
-                      </GridListTile>
-                      ))}
-                  </GridList>
-                  </Slide>{" "}
-                  </div>
-              </Container>
+                      onEnter={() => {
+                        this.setState({ entered: true });
+                      }}
+                    />
+                    <Slide direction={"left"} in={this.state.entered}>
+                  
+                    <GridList cellHeight={'300'} className={classes.gridList} cols={4} spacing={30}>
+                        {/* <GridListTile key="Subheader" cols={4} style={{ height: 'auto' }}>
+                        <ListSubheader component="div">December</ListSubheader>
+                        </GridListTile> */}
+                        {this.state.artifacts.map((artifact,index) => (
+                        <GridListTile key={artifact._id + index}>
+                            <img src={artifact.url} alt={artifact.name} onClick={() => {
+                                  this.imageToggle(index);
+                                }}/>
+                            <GridListTileBar
+                            title={artifact.name}
+                            subtitle={<span>by: {artifact.user.username}</span>}
+                            actionIcon={
+                                <IconButton aria-label={`info about ${artifact.name}`} className={classes.icon}
+                                >
+                                <InfoIcon />
+                                </IconButton>
+                            }
+                            />
+                        </GridListTile>
+                        ))}
+                    </GridList>
+                    </Slide>
+              {/* </Container> */}
               {this.state.imageOpen ? (
               <Lightbox
                 mainSrc={this.state.artifacts[this.state.photoIndex].url}
@@ -197,7 +193,7 @@ class ArtifactView extends Component {
                 
               />
             ) : null}
-            </div>
+          </div>
         )
     }
 }
@@ -206,6 +202,7 @@ class ArtifactView extends Component {
 
 ArtifactView.propTypes = {
     classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired
   };
   
 export default withStyles(styles)(ArtifactView);
