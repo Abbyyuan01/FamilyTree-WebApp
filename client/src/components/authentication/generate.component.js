@@ -116,7 +116,8 @@ class GenerateAccount extends Component {
                   <LockOutlinedIcon />
                   </Avatar>
                   <Typography component="h1" variant="h5">
-                  GenerateAccount
+                  {/* GenerateAccount */}
+                  Register
                   </Typography>
                   <form className={classes.form} noValidate onSubmit={this.onSubmit}>
                   <TextField
@@ -158,7 +159,7 @@ class GenerateAccount extends Component {
                   <TextField
                       onChange={this.onChange}
                       value={this.state.password}
-                      error={errors.email}
+                      error={errors.password}
                       variant="outlined"
                       margin="normal"
                       required
@@ -180,7 +181,8 @@ class GenerateAccount extends Component {
                       color="primary"
                       className={classes.submit}
                   >
-                      Generate Account
+                    Sign Up
+                      {/* Generate Account */}
                   </Button>
                   <Grid container>
                       <Grid item xs>
