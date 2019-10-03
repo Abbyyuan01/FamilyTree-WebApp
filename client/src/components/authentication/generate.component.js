@@ -18,7 +18,6 @@ import Container from '@material-ui/core/Container';
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 import classnames from "classnames";
-// import { Link, withRouter } from "react-router-dom";
 
 function Copyright() {
   return (
