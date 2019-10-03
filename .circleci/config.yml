@@ -1,4 +1,4 @@
-version: 1.0
+version: 2.1
 jobs:
   build:
     working_directory: ~/GhostZen
@@ -31,7 +31,7 @@ jobs:
   #     - run: npm run pretest
   #     - run: npm run test
 workflows:
-  version: 1.0
+  version: 2.1
   build_and_test:
     jobs:
       - build
