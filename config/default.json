@@ -1,0 +1,3 @@
+{
+    "db": "mongodb+srv://ghostzen:ghostzen111@cluster0-tvhfs.gcp.mongodb.net/familytree?retryWrites=true&w=majority"
+}

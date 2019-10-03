@@ -4,6 +4,8 @@ var app = express();
 const multer = require('multer');
 const mongoose = require('mongoose');
 const path = require('path');
+const config = require('config')
+const db = config.get('db')
 
 
 // middleware use
@@ -14,7 +16,7 @@ app.use(express.json());
 
 
 //connect to mongoab
-const uri = process.env.MONGODB_URI || "mongodb+srv://ghostzen:ghostzen111@cluster0-tvhfs.gcp.mongodb.net/familytree?retryWrites=true&w=majority";
+const uri = process.env.MONGODB_URI || db;
 //const uri = "mongodb://localhost:27017/familytree"
 
 const options = {
@@ -48,6 +50,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const port = process.env.PORT || 5000;
-app.listen(port, () => {
-    console.log(`Server running is runnig on port: ${port}`)
-});
+if (process.env.NODE_ENV !== "test"){
+    app.listen(port, () => {
+        console.log(`Server running is runnig on port: ${port}`)
+    });
+}
+
+module.exports = app
