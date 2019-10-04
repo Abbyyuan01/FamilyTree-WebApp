@@ -35,9 +35,10 @@ jobs:
             - v1-dependencies-
 
       - run: npm install
-      # - run: cd client && npm install
-      # - run: npm run pretest
       - run: npm run test
+
+      - run: cd client && npm install
+      - run: npm test
 
       - save_cache:
           paths:
@@ -56,10 +57,17 @@ jobs:
 
 workflows:
   version: 2.1
-  build_and_test:
+  build_test_deploy:
     jobs:
-      - build
-      - test
+      - build:
+          filters:
+            branches:
+            only: master
+
+      - test:
+          filters:
+            branches:
+            only: master
       # - deploy:
       #     requires:
       #       - build
