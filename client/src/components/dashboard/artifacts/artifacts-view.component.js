@@ -104,10 +104,13 @@ class ArtifactView extends Component {
       console.log("like");
     }
 
-    handeledeleteExercise(id) {
+    handleEdit () {
+
+    };
+
+    handleDelete(id) {
       axios.delete('/artifacts/'+id)
         .then(response => { console.log(response.data)});
-  
       this.setState({
         artifacts: this.state.artifacts.filter(el => el._id !== id)
       })
@@ -150,23 +153,12 @@ class ArtifactView extends Component {
                           title={artifact.name}
                           subtitle={<span>by: {artifact.user.username}</span>}
                           actionIcon={[
-                              <IconButton onClick={()=> {
-                                this.deleteExercise(artifact._id)
-                                }
-                                }
-                            aria-label={`info about ${artifact.name}`} className={classes.icon}
-                              >
-                              <EditIcon  />
-                              </IconButton>, 
-
-                              <IconButton onClick={()=> {
-                                this.deleteExercise(artifact._id)
-                                }
-                                }
-                            aria-label={`info about ${artifact.name}`} className={classes.icon}
-                              >
-                              <DeleteIcon  />
-                              </IconButton>
+                            <IconButton aria-label={'edit'} className={classes.icon} onClick={this.handleEdit}>
+                              <EditIcon />
+                            </IconButton>,
+                            <IconButton aria-label={'delete'} className={classes.icon} onClick={()=>{this.handleDelete(artifact._id)}}>
+                              <DeleteIcon />
+                            </IconButton>
                           ]
                           }
                           />
