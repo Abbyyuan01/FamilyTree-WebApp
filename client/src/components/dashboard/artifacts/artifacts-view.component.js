@@ -23,6 +23,8 @@ import Popover from '@material-ui/core/Popover';
 import {Waypoint} from "react-waypoint";
 import Slide from "@material-ui/core/Slide";
 import "react-image-lightbox/style.css";
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/DeleteRounded';
 
 
 const styles = theme => ({
@@ -102,9 +104,17 @@ class ArtifactView extends Component {
       console.log("like");
     }
 
+    handeledeleteExercise(id) {
+      axios.delete('/artifacts/'+id)
+        .then(response => { console.log(response.data)});
+  
+      this.setState({
+        artifacts: this.state.artifacts.filter(el => el._id !== id)
+      })
+    }
+
     render (){
         const classes = this.props;
-
 
         const singleArtifactButtons  =  [
           <IconButton aria-label="like" className={classes.margin}  onClick={this.handleLike}>
@@ -139,11 +149,25 @@ class ArtifactView extends Component {
                           <GridListTileBar
                           title={artifact.name}
                           subtitle={<span>by: {artifact.user.username}</span>}
-                          actionIcon={
-                              <IconButton aria-label={`info about ${artifact.name}`} className={classes.icon}
+                          actionIcon={[
+                              <IconButton onClick={()=> {
+                                this.deleteExercise(artifact._id)
+                                }
+                                }
+                            aria-label={`info about ${artifact.name}`} className={classes.icon}
                               >
-                              <InfoIcon />
+                              <EditIcon  />
+                              </IconButton>, 
+
+                              <IconButton onClick={()=> {
+                                this.deleteExercise(artifact._id)
+                                }
+                                }
+                            aria-label={`info about ${artifact.name}`} className={classes.icon}
+                              >
+                              <DeleteIcon  />
                               </IconButton>
+                          ]
                           }
                           />
                       </GridListTile>
@@ -201,7 +225,6 @@ class ArtifactView extends Component {
         )
     }
 }
-
 
 
 ArtifactView.propTypes = {

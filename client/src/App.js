@@ -25,7 +25,7 @@ import ArtifactView from "./components/dashboard/artifacts/artifacts-view.compon
 import Timeline from "./components/dashboard/artifacts/artifacts-timeline.component";
 import HomeNav from "./components/homepage/navbar/homeNav";
 import DashboardNav from "./components/dashboard/navbar/dashboardNav";
-
+import ErrorBoundary from "./errorBoundary"
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -54,6 +54,7 @@ class App extends Component {
    */
   render() {
     return (
+      <ErrorBoundary>
       <Provider store={store}>
         <Router>
         <div>
@@ -90,6 +91,7 @@ class App extends Component {
           </div>
         </Router>
       </Provider>
+      </ErrorBoundary>
     );
   }
 }
