@@ -62,12 +62,14 @@ workflows:
       - build:
           filters:
             branches:
-            only: master
+              only: 
+                - master
 
       - test:
           filters:
             branches:
-            only: master
+              only: 
+                - master
       # - deploy:
       #     requires:
       #       - build
