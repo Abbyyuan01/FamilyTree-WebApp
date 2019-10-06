@@ -130,7 +130,7 @@ class ArtifactView extends Component {
 
         return (
             <div className={classes.root}>
-              {/* <Container component="main" maxWidth="lg"> */}
+              <Container component="main" maxWidth="lg">
                   <Waypoint
                     onEnter={() => {
                       this.setState({ entered: true });
@@ -163,8 +163,7 @@ class ArtifactView extends Component {
                       ))}
                   </GridList>
                   </Slide>{" "}
-                  </div>
-              </Container>
+                </Container>
 
               {this.state.imageOpen ? (
               <Lightbox

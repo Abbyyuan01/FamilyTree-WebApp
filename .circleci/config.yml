@@ -38,7 +38,7 @@ jobs:
       - run: npm run test
 
       - run: cd client && npm install
-      - run: npm test
+      - run: cd client && npm test
 
       - save_cache:
           paths:
