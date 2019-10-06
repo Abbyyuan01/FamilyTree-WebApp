@@ -33,20 +33,20 @@ const styles = theme => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    backgroundColor: "#f3f3f3",
+    margin: theme.spacing(5)
   },
   gridList: {
-    width: 500,
-    height: 600,
+    width: 'flex',
+    height:'flex',
+    // backgroundColor: "#f3f3f3",
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
   },
-  button: {
-    padding: '30px',
-    margin: theme.spacing(1)
-  }
-
+  // button: {
+  //   padding: '30px',
+  //   margin: theme.spacing(1)
+  // }
 })
 
 class ArtifactView extends Component {
@@ -117,7 +117,7 @@ class ArtifactView extends Component {
     }
 
     render (){
-        const classes = this.props;
+        const {classes, theme} = this.props;
 
         const singleArtifactButtons  =  [
           <IconButton aria-label="like" className={classes.margin}  onClick={this.handleLike}>
@@ -130,10 +130,7 @@ class ArtifactView extends Component {
 
         return (
             <div className={classes.root}>
-              <Container maxWidth="lg">
-                  <div className={classes.root}>
-                  </div>
-                  <div className={classes.root}>
+              {/* <Container component="main" maxWidth="lg"> */}
                   <Waypoint
                     onEnter={() => {
                       this.setState({ entered: true });
@@ -168,6 +165,7 @@ class ArtifactView extends Component {
                   </Slide>{" "}
                   </div>
               </Container>
+
               {this.state.imageOpen ? (
               <Lightbox
                 mainSrc={this.state.artifacts[this.state.photoIndex].url}
@@ -213,7 +211,7 @@ class ArtifactView extends Component {
                 
               />
             ) : null}
-            </div>
+          </div>
         )
     }
 }
@@ -221,6 +219,7 @@ class ArtifactView extends Component {
 
 ArtifactView.propTypes = {
     classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired
   };
   
 export default withStyles(styles)(ArtifactView);

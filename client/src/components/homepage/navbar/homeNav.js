@@ -11,6 +11,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Snackbar from '@material-ui/core/Snackbar';
+import Slide from '@material-ui/core/Slide';
+
+function TransitionUp(props) {
+  return <Slide {...props} direction="up" />;
+}
 
 
 class HomeNav extends Component {
@@ -18,11 +24,22 @@ class HomeNav extends Component {
     super(props);
 
     this.state = {
-      anchorEl: null,   
+      anchorEl: null, 
+      open: false,
+      Transition: null,  
     };
 
   }
 
+  handleDashboardClick = Transition => () => {
+    if (!this.props.auth.isAuthenticated) {
+      this.setState({ open: true, Transition });
+    }
+  };
+
+  handleSnackbarClose = () => {
+    this.setState({ open: false });
+  };
 
   handleMenu = event => {
     this.setState({ anchorEl: event.currentTarget });
@@ -55,6 +72,7 @@ class HomeNav extends Component {
             scroll
           >
             <Navigation>
+              <Link to="/dashboard" onClick={this.handleDashboardClick(TransitionUp)}>Dashboard</Link>
               <Link to="/aboutme">About Me</Link>
               <Link to="/contact">Contact</Link>
               <Link to="/contactus">Contact Us</Link>
@@ -101,8 +119,8 @@ class HomeNav extends Component {
             }
           >
             <Navigation>
+              <Link to="/dashboard">Dashboard</Link>
               <Link to="/aboutme">About Me</Link>
-              <Link to="/projects">Projects</Link>
               <Link to="/contact">Contact</Link>
               <Link to="/contactus">Contact Us</Link>
               <Link to="/login">Login</Link>
@@ -113,6 +131,15 @@ class HomeNav extends Component {
               <div className="page-content" />
               {this.props.children}
             </Content>
+            <Snackbar
+            open={this.state.open}
+            onClose={this.handleSnackbarClose}
+            TransitionComponent={this.state.Transition}
+            ContentProps={{
+              'aria-describedby': 'message-id',
+            }}
+            message={<span id="message-id">Please Login At First</span>}
+          />
         </Layout>
       </div>
     );
