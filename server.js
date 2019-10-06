@@ -1,23 +1,20 @@
 var express = require('express');
 var cors = require('cors');
 var app = express();
-const multer = require('multer');
 const mongoose = require('mongoose');
 const path = require('path');
 const config = require('config')
 const db = config.get('db')
-
+const morgan = require("morgan");
 
 // middleware use
 app.use(cors());
 app.use(express.json());
-
-// set view engine
-
+app.use(morgan("dev"));
 
 //connect to mongoab
 const uri = process.env.MONGODB_URI || db;
-//const uri = "mongodb://localhost:27017/familytree"
+// const uri = "mongodb://localhost:27017/familytree"
 
 const options = {
     useNewUrlParser: true
@@ -55,5 +52,20 @@ if (process.env.NODE_ENV !== "test"){
         console.log(`Server running is runnig on port: ${port}`)
     });
 }
+
+app.use((req, res, next) => {
+    const error = new Error("Not found");
+    error.status = 404;
+    next(error);
+});
+  
+app.use((error, req, res, next) => {
+    res.status(error.status || 500);
+    res.json({
+      error: {
+        message: error.message
+      }
+    });
+});
 
 module.exports = app

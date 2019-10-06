@@ -13,6 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import Image from 'material-ui-image';
+import { connect } from "react-redux";
 
 import {
   MuiPickersUtilsProvider,
@@ -38,68 +39,95 @@ const useStyles = theme => ({
 
 
 class ArtifactUpload extends Component {
+  constructor( props ) {
+    super( props );
+    this.state = {
+     selectedFile: null,
+     bloburl:null,
+     name : '',
+    //  Please enter name of artifact here
+     description : null,
+     tag : '',
+    //  Please enter tag here
+     category : null,
+     artifactTime : new Date(),
+     user: null,
+     visibility : null
+    }
+   }
 
-  state = {
-    name : 'Please enter name of artifact here',
-    url : null,
-    description : null,
-    tag : 'Please enter tag here',
-    category : null,
-    artifactTime : new Date(),
-    user: null,
-    visibility : null
-  }
 
   fileSelectedHandler = event => {
     this.setState({
-      url: URL.createObjectURL(event.target.files[0])  
+      bloburl: URL.createObjectURL(event.target.files[0]),
+      selectedFile: event.target.files[0]
     })
-    console.log(this.context)
-    console.log(this.state)
+    // console.log(this.props.auth.user.id)
   };
 
-  handleChange = name => event => {
+  handleNameChange = event => {
     this.setState({
-      [name]: event.target.value
+      name: event.target.value
     })
+    console.log(this.state.name)
     // setValues({...values,[name]: event.target.value});
   };
 
-  handleTimeChange = date => {
+  handleTimeChange = event => {
     this.setState ({
-      artifactTime: date
+      artifactTime: event.target.value
     });
   };
 
+  handleTagChange = event => {
+    this.setState ({
+      tag: event.target.value
+    });
+  }
+
+  handleDesChange = event => {
+    this.setState ({
+      description: event.target.value
+    });
+  }
+
   fileUploadHandler = () => {
-    //const newInput = new FormData();
-    //newInput.append('url',url);
-    const artifact = {
-      name:this.state.name,
-      url : this.state.url,
-      description : this.state.description,
-      tag : this.state.tag,
-      category : this.state.category,
-      artifactTime : this.state.artifactTime,
-      user: this.context.user.username,
-      visibility : this.state.visibility
+    const newInput = new FormData();
 
+    // If file selected
+    if ( this.state.selectedFile ) {
+      newInput.append( 'image', this.state.selectedFile);
+      newInput.append( 'name', this.state.name);
+      newInput.append( 'description', this.state.description);
+      newInput.append( 'tag', this.state.tag);
+      newInput.append( 'artifactTime', this.state.artifactTime);
+      newInput.append('user', this.props.auth.user.id)
+
+      axios.post('/uploadArtifacts/', newInput, {
+        headers: {
+          'accept': 'application/json',
+          'Content-Type':  `multipart/form-data; boundary=${newInput._boundary}`,
+        }
+        })
+        .then(res => {
+          console.log(res);
+          console.log("newInput")
+          console.log(this.context)
+          console.log(this.state)
+        }).catch(err=>{
+          console.log(err)
+        });
+
+    }else{
+      console.log('Please upload file')
     }
-
-    axios.post('/uploadArtifacts/', artifact)
-      .then(res => {
-        console.log(res);
-        console.log("newInput")
-        console.log(this.context)
-        console.log(this.state)
-      }).catch(err=>{
-        console.log(err)
-      });
 
   };
 
   render() {
     const { classes, theme } = this.props;
+    const { user } = this.props.auth;
+
     return (
       <div className="artifact">
         <form className={classes.container} noValidate autoComplete="off">
@@ -108,11 +136,11 @@ class ArtifactUpload extends Component {
             label="Artifact Name"
             className={classes.textField}
             value={this.state.name}
-            onChange={this.handleChange('name')}
+            onChange={this.handleNameChange}
             margin="normal"
           />
           <input type="file" onChange={this.fileSelectedHandler}/>
-          <Image src={this.state.url} alt="unable to display" className={classNames(classes.imagePreview)}/>
+          <Image src={this.state.bloburl} alt="unable to display" className={classNames(classes.imagePreview)}/>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
               disableToolbar
@@ -133,7 +161,7 @@ class ArtifactUpload extends Component {
             label="Tag"
             className={classes.textField}
             value={this.state.tag}
-            onChange={this.handleChange('tag')}
+            onChange={this.handleTagChange}
             margin="normal"
           />
           <TextField
@@ -142,7 +170,7 @@ class ArtifactUpload extends Component {
             multiline
             rowsMax="4"
             value={this.state.description}
-            onChange={this.handleChange('description')}
+            onChange={this.handleDesChange}
             className={classes.textField}
             margin="normal"
             helperText="Please enter description above"
@@ -157,8 +185,15 @@ class ArtifactUpload extends Component {
 }
 
 ArtifactUpload.propTypes = {
-classes: PropTypes.object.isRequired,
-theme: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
-export default withStyles(useStyles, { withTheme: true })(ArtifactUpload);
+const mapStateToProps = state => ({
+   auth: state.auth
+});
+
+export default connect(mapStateToProps)(withStyles(useStyles, { withTheme: true })(ArtifactUpload));
+
+// export default withStyles(useStyles, { withTheme: true })(ArtifactUpload);

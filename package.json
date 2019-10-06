@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/storage": "^3.3.1",
     "bcryptjs": "^2.4.3",
     "concurrently": "^4.1.2",
     "config": "^3.2.2",
@@ -24,17 +25,19 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.3.1",
     "mongoose": "^5.6.10",
+    "morgan": "^1.9.1",
     "multer": "^1.4.2",
     "nodemon": "^1.19.1",
     "passport": "^0.4.0",
+    "util": "^0.12.1",
     "validator": "^11.1.0"
   },
   "devDependencies": {
+    "http-status": "^0.2.5",
+    "jest": "^24.9.0",
     "mongoose-auto-increment": "^5.0.1",
     "should": "^13.2.3",
-    "supertest": "^4.0.2",
-    "jest": "^24.9.0",
-    "http-status": "^0.2.5"
+    "supertest": "^4.0.2"
   },
   "jest": {
     "testEnvironment": "node",
