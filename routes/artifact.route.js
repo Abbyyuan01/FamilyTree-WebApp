@@ -107,7 +107,11 @@ router.get('/artifacts/:id', async (req, res) => {
 });
 
 // update an artifact based on ID
-
+router.post('updateArtifacts/:id',async (req,res) => {
+    await Artifact.findByIdAndUpdate(req.params.id,req.body,{new:true})
+      .then(()=> res.json('Artifact update'))
+      .catch(err => res.status(400).json('Error:' + err));
+});
 
 //delete artifacts by id
 router.delete('/artifacts/:id', async (req, res) => {
