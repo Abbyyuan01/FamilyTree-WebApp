@@ -4,17 +4,30 @@ const User = require('../models/user.model')
 const multer = require('multer');
 const { Storage } = require("@google-cloud/storage");
 const {format} = require('util');
+require('dotenv').config();
 
-const GOOGLE_CLOUD_PROJECT_ID = 'temporal-state-247907'; // project ID
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, './server/');
+//     },
+//     filename: function (req, file, cb) {
+//         cb(null, Date.now() + file.originalname);
+//     }
+// });
 
+
+const projectId = 'temporal-state-247907'; // project ID
+
+console.log(process.env.NODE_ENV)
 // Instantiate a storage client
 const storage = new Storage({
-    projectId: GOOGLE_CLOUD_PROJECT_ID,
+    projectId: projectId,
     credentials:{
         client_email: process.env.CLIENT_EMAIL,
-        private_key: process.env.GCS_KEYFILE.replace(/\\n/g, '\n')
+        // private_key: process.env.GCS_KEYFILE.replace(/\\n/g, '\n')
     } 
-  });
+});
+
 
 const fileFilter = (req, file, cb) => {
     // reject a file
@@ -68,7 +81,7 @@ router.post('/uploadArtifacts', upload.single('image'), async (req, res) => {
             "url": publicUrl,
             "description": req.body.description,
             "editTime": Date.now(),
-            "category": req.body.category,
+            "tag": req.body.tag,
             "artifactTime": req.body.artifactTime,
             "user": req.body.user,
             "visibility": req.body.visibility
@@ -102,11 +115,7 @@ router.get('/artifacts/:id', async (req, res) => {
 });
 
 // update an artifact based on ID
-router.post('updateArtifacts/:id',async (req,res) => {
-    await Artifact.findByIdAndUpdate(req.params.id,req.body,{new:true})
-      .then(()=> res.json('Artifact update'))
-      .catch(err => res.status(400).json('Error:' + err));
-});
+
 
 //delete artifacts by id
 router.delete('/artifacts/:id', async (req, res) => {

@@ -1,128 +1,59 @@
-import React, { Component } from "react";
-import "./timelineapp.css";
-import "./lib/timeline.scss";
-import Timeline from "./lib/timeline";
-import { getSampleData } from "./data";
+import React, { Component } from 'react'
+import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
+import 'react-vertical-timeline-component/style.min.css';
+import LikeIcon from "@material-ui/icons/FavoriteBorder"
+import axios from 'axios';
+import Container from '@material-ui/core/Container';
 
-const CustomTopLabel = props => {
-  return (
-    <div className="custom-top-label">
-      <p>Top Label</p>
-    </div>
-  );
-};
+class ArtifactTimeLine extends Component {
 
-const CustomBottomLabel = props => {
-  return (
-    <div className="custom-bottom-label">
-      <p>Bottom Label</p>
-    </div>
-  );
-};
+    constructor(props) {
+        super(props);
+        this.state = { 
+            artifacts: []
+        };
+      }
+    
+     //load before everything
+     componentDidMount() {
+        axios.get('/artifacts/')
+          .then(response => {
+              if (response.data.length > 0) {
+                  this.setState({
+                      artifacts: response.data
+                  })
+              }
+          })
+          .catch((error) => {
+            console.log(error);
+          })
 
-const CustomHeader = props => {
-  return (
-    <div className="custom-header">
-      <h3>Header</h3>
-    </div>
-  );
-};
-
-const CustomFooter = props => {
-  return (
-    <div className="custom-footer">
-      <h3>Footer</h3>
-    </div>
-  );
-};
-
-const CustomTextBody = props => {
-  return (
-    <div className="custom-text-body">
-      <h3>Text Body</h3>
-    </div>
-  );
-};
-
-const CustomImageBody = props => {
-  const { imageUrl } = props.event;
-  return (
-    <div className="custom-image-body">
-      <h3 className="image-body-label">Image Body</h3>
-      <img src={imageUrl} alt="" className="rt-image" />
-    </div>
-  );
-};
-
-class TimelineExample extends Component {
-  static displayName = "TimelineExample";
-  static propTypes = {};
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      events: getSampleData(),
-      useCustomComponents: false,
-      reverseOrder: false
-    };
-  }
-
-  handleToggleUseCustomComponents(event) {
-    this.setState({ useCustomComponents: event.target.checked });
-  }
-  handleToggleReverseOrder(event) {
-    this.setState({ reverseOrder: event.target.checked });
-  }
-
-  render() {
-    const { events, useCustomComponents, reverseOrder } = this.state;
-    const timeline = <Timeline events={events} reverseOrder={reverseOrder} />;
-    const customComponents = {
-      topLabel: CustomTopLabel,
-      bottomLabel: CustomBottomLabel,
-      header: CustomHeader,
-      imageBody: CustomImageBody,
-      textBody: CustomTextBody,
-      footer: CustomFooter
-    };
-    const customTimeline = (
-      <Timeline
-        events={events}
-        customComponents={customComponents}
-        reverseOrder={reverseOrder}
-      />
-    );
-    return (
-      <div>
-        <div style={{ textAlign: "center" }}>
-          <h1>React Image Timeline Example</h1>
-          <h4>resize window to see mobile layout</h4>
-        </div>
-        <div className="toggle-container">
-          <strong>Use Custom Components</strong>
-          <input
-            type="checkbox"
-            onChange={this.handleToggleUseCustomComponents.bind(this)}
-            checked={useCustomComponents}
-          />
-          <strong>Reverse Order</strong>
-          <input
-            type="checkbox"
-            onChange={this.handleToggleReverseOrder.bind(this)}
-            checked={reverseOrder}
-          />
-        </div>
-        <hr />
-        {useCustomComponents ? customTimeline : timeline}
-      </div>
-    );
-  }
+    }
+  
+    render() { 
+        
+        return ( 
+        <Container component="main" maxWidth="lg">
+        {this.state.artifacts.map((artifact) => (
+            <VerticalTimeline key={artifact._id}>
+            <VerticalTimelineElement
+                className="vertical-timeline-element--work"
+                date={artifact.artifactTime}
+                iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                icon={<LikeIcon />}
+            >
+                <h3 className="vertical-timeline-element-title">{artifact.name}</h3>
+                <h4 className="vertical-timeline-element-subtitle">{artifact.user.username}</h4>
+                <img src={artifact.url}/>
+                <p>
+                    {artifact.description}
+                </p>
+            </VerticalTimelineElement>
+            </VerticalTimeline>
+        ))}
+        </Container>
+         );
+    }
 }
-
-class App extends Component {
-  render() {
-    return <TimelineExample />;
-  }
-}
-
-export default App;
+ 
+export default ArtifactTimeLine;

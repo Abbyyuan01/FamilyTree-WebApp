@@ -58,13 +58,13 @@ class App extends Component {
       <Provider store={store}>
         <Router>
         <div>
-          <ScrollToTopWithRouter>
+          {/* <ScrollToTopWithRouter> */}
             <Switch>
             <Route
                 path="/"
                 component={({ match: { path } }) => (
                 <HomeNav>
-                  <Route exact path={`${path}`}  component={props => <LandingPage {...props} />} />
+                  <Route exact path="/" component={props => <LandingPage {...props} />} />
                   <Route exact path={`${path}aboutme`}  component={props => <AboutMe {...props} />} />
                   <Route exact path={`${path}contactus`} component={props => <ContactUs {...props} />} />
                   <Route exact path={`${path}contact`} component={props => <Contact {...props} />} />    
@@ -74,20 +74,21 @@ class App extends Component {
                 )}
               />
             </Switch>
-
+            
             <Switch>
               <PrivateRoute
                 path="/dashboard"
                 component={({ match: { path } }) => (
                   <DashboardNav>
                     <Route exact path={`${path}/`} component={props => <ArtifactView {...props} />}/>
-                    <Route path={`${path}/upload`} component={props => <ArtifactUpload {...props} />} />
+                    <Route exact path={`${path}/upload`} component={props => <ArtifactUpload {...props} />} />
                     <Route path={`${path}/timeline`} component={props => <Timeline {...props} />} />
                   </DashboardNav>
                 )}
+  
               />
             </Switch>
-          </ScrollToTopWithRouter>
+          {/* </ScrollToTopWithRouter> */}
           </div>
         </Router>
       </Provider>
@@ -98,16 +99,16 @@ class App extends Component {
 
 export default App;
 
-class ScrollToTop extends React.Component {
-  componentDidUpdate(prevProps) {
-    if (this.props.location.pathname !== prevProps.location.pathname) {
-      window.scrollTo(0, 0);
-    }
-  }
+// class ScrollToTop extends React.Component {
+//   componentDidUpdate(prevProps) {
+//     if (this.props.location.pathname !== prevProps.location.pathname) {
+//       window.scrollTo(0, 0);
+//     }
+//   }
 
-  render() {
-    return this.props.children;
-  }
-}
+//   render() {
+//     return this.props.children;
+//   }
+// }
 
-const ScrollToTopWithRouter = withRouter(ScrollToTop);
+// const ScrollToTopWithRouter = withRouter(ScrollToTop);

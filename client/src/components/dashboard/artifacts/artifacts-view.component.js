@@ -2,10 +2,10 @@
  * artifactview component: view all artifacts and view one artifact 
  * and information of that artifact
  */
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import GridList from '@material-ui/core/GridList';
-import { fade, withStyles } from '@material-ui/core/styles';
+import { fade,withStyles } from '@material-ui/core/styles';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
@@ -28,15 +28,13 @@ import DeleteIcon from '@material-ui/icons/DeleteRounded';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 
-
 const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    margin: theme.spacing(5),
-    flexGrow: 1
+    margin: theme.spacing(5)
   },
   gridList: {
     width: 'flex',
@@ -170,8 +168,7 @@ class ArtifactView extends Component {
 
         return (
             <div className={classes.root}>
-              <Container component="main" maxWidth="lg">
-                <div className={classes.search}>
+              <div className={classes.search}>
                   <div className={classes.searchIcon}>
                     <SearchIcon />
                   </div>
@@ -184,16 +181,30 @@ class ArtifactView extends Component {
                     inputProps={{ 'aria-label': 'search' }}
                   />
                 </div>
-                <Waypoint
+              <Container component="main" maxWidth="lg">
+                  <Waypoint
                     onEnter={() => {
                       this.setState({ entered: true });
                     }}
                   />
                   <Slide direction={"left"} in={this.state.entered}>
                   <GridList cellHeight={300} className={classes.gridList} cols={4} spacing={30}>
-                      {/* <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-                      <ListSubheader component="div">December</ListSubheader>
-                      </GridListTile> */}
+                      <GridListTile key="Subheader" cols={4} style={{ height: 'auto' }}>
+                      {/* <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                          <SearchIcon />
+                        </div>
+                        <InputBase
+                          placeholder="Search…"
+                          classes={{
+                            root: classes.inputRoot,
+                            input: classes.inputInput,
+                          }}
+                          inputProps={{ 'aria-label': 'search' }}
+                        />
+                      </div> */}
+                      {/* <ListSubheader component="div">December</ListSubheader> */}
+                      </GridListTile>
                       {this.state.artifacts.map((artifact,index) => (
                       <GridListTile key={artifact._id + index}>
                           <img src={artifact.url} alt={artifact.name} onClick={() => {
