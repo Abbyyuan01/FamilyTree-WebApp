@@ -9,7 +9,11 @@ const GOOGLE_CLOUD_PROJECT_ID = 'temporal-state-247907'; // project ID
 
 // Instantiate a storage client
 const storage = new Storage({
-    projectId: GOOGLE_CLOUD_PROJECT_ID
+    projectId: GOOGLE_CLOUD_PROJECT_ID,
+    credentials:{
+        client_email: process.env.CLIENT_EMAIL,
+        private_key: process.env.GCS_KEYFILE.replace(/\\n/g, '\n')
+    } 
   });
 
 const fileFilter = (req, file, cb) => {
