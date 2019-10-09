@@ -140,6 +140,7 @@ class ArtifactUpload extends Component {
     this.setState({
       visibility: event.target.value
     });
+    console.log(this.state.visibility);
   }
 
   handleDesChange = event => {

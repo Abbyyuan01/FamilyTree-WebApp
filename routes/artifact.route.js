@@ -5,15 +5,6 @@ const multer = require('multer');
 const { Storage } = require("@google-cloud/storage");
 const {format} = require('util');
 
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, './server/');
-//     },
-//     filename: function (req, file, cb) {
-//         cb(null, Date.now() + file.originalname);
-//     }
-// });
-
 const GOOGLE_CLOUD_PROJECT_ID = 'temporal-state-247907'; // project ID
 
 // Instantiate a storage client

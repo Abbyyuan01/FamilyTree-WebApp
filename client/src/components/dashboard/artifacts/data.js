@@ -9,6 +9,7 @@ import rome from './assets/rome.jpg';
 import seoul from './assets/seoul.jpg';
 import tokyo from './assets/tokyo.jpg';
 import madrid from './assets/madrid.jpg';
+import axios from 'axios';
 
 const IPSUM = `Sed leo elit, pellentesque sit amet congue quis, ornare nec lorem. Phasellus tincidunt rhoncus magna,
 eget elementum odio rutrum fermentum. Ut a justo lacus. Maecenas blandit molestie felis ac viverra. Pellentesque
