@@ -64,7 +64,7 @@ router.post('/uploadArtifacts', upload.single('image'), async (req, res) => {
             "url": publicUrl,
             "description": req.body.description,
             "editTime": Date.now(),
-            "tag": req.body.tag,
+            "category": req.body.category,
             "artifactTime": req.body.artifactTime,
             "user": req.body.user,
             "visibility": req.body.visibility

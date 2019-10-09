@@ -2,7 +2,7 @@
  * artifactview component: view all artifacts and view one artifact 
  * and information of that artifact
  */
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import GridList from '@material-ui/core/GridList';
 import { fade, withStyles } from '@material-ui/core/styles';
