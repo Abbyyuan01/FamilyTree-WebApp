@@ -76,7 +76,7 @@ router.post('/uploadArtifacts', upload.single('image'), async (req, res) => {
             "tag": req.body.tag,
             "artifactTime": req.body.artifactTime,
             "user": req.body.user,
-            // "visibility": req.body.visibility
+            "visibility": req.body.visibility
         });
 
         newArtifact.save()

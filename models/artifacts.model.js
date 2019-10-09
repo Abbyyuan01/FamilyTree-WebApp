@@ -15,7 +15,7 @@ const artifactSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    "visibility": Boolean
+    "visibility": [String]
 });
 
 const Artifact = mongoose.model('Artifact', artifactSchema)
