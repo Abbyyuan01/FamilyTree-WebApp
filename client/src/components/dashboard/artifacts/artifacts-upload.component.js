@@ -85,9 +85,8 @@ class ArtifactUpload extends Component {
      name : '',
     //  Please enter name of artifact here
      description : null,
-     tag : '',
     //  Please enter tag here
-     category : null,
+     category : ' ',
      artifactTime : new Date(),
      user: null,
      visibility : [],
@@ -130,9 +129,9 @@ class ArtifactUpload extends Component {
     });
   };
 
-  handleTagChange = event => {
+  handleCategoryChange = event => {
     this.setState ({
-      tag: event.target.value
+      category: event.target.value
     });
   }
 
@@ -157,7 +156,7 @@ class ArtifactUpload extends Component {
       newInput.append( 'image', this.state.selectedFile);
       newInput.append( 'name', this.state.name);
       newInput.append( 'description', this.state.description);
-      newInput.append( 'tag', this.state.tag);
+      newInput.append( 'category', this.state.category);
       newInput.append( 'artifactTime', this.state.artifactTime);
       newInput.append('user', this.props.auth.user.id);
       newInput.append('visibility',this.state.visibility);
@@ -217,8 +216,8 @@ class ArtifactUpload extends Component {
             id="artifactTag"
             label="Tag"
             className={classes.textField}
-            value={this.state.tag}
-            onChange={this.handleTagChange}
+            value={this.state.category}
+            onChange={this.handleCategoryChange}
             margin="normal"
           />
           <FormControl className={classes.formControl}>

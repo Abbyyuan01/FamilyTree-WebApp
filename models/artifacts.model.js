@@ -8,7 +8,6 @@ const artifactSchema = new mongoose.Schema({
     "url": String,
     "description": String,
     "editTime": Date,
-    "tag": String,
     "category": String,
     "artifactTime": Date,
     "user": {
