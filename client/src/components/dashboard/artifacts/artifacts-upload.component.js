@@ -27,6 +27,17 @@ import {
 } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import Image from 'material-ui-image';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Checkbox from '@material-ui/core/Checkbox';
+import Select from '@material-ui/core/Select';
+import Chip from '@material-ui/core/Chip';
 import { connect } from "react-redux";
 import {
   MuiPickersUtilsProvider,
@@ -141,6 +152,13 @@ class ArtifactUpload extends Component {
   };
 
   handleCategoryPChange = event => {
+    this.setState ({
+      category: event.target.value,
+      ...this.state.categoryValue.Pet = event.target.checked
+    });
+  }
+
+  handleCategoryIChange = event => {
     this.setState ({
       category: event.target.value,
       ...this.state.categoryValue.Pet = event.target.checked
