@@ -8,17 +8,25 @@ import 'date-fns';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
+import {
+  Typography,
+  Paper,
+  Grid,
+  Button,
+  Checkbox,
+  Chip,
+  Select,
+  Input,
+  TextField,
+  InputLabel,
+  FormLabel,
+  MenuItem,
+  FormGroup,
+  FormControl,
+  FormControlLabel,
+} from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import Image from 'material-ui-image';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Chip from '@material-ui/core/Chip';
 import { connect } from "react-redux";
 import {
   MuiPickersUtilsProvider,
@@ -27,31 +35,34 @@ import {
 
 
 const useStyles = theme => ({
+  root: {
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+  },
   container: {
-    margin: 8,
+    margin: theme.spacing(2),
     marginTop: 24,
+    borderRadius: '16',
   },
   textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 400,
+    margin: theme.spacing(2),
   },
-  imagePreview: {
-    margin: 10,
-    width: 30,
-    height: 30,
+  img: {
+    width: 300,
+    height: 300,
   },
   formControl: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(2),
     minWidth: 120,
     maxWidth: 300,
   },
   chips: {
+    margin: theme.spacing(2),
     display: 'flex',
     flexWrap: 'wrap',
   },
   chip: {
-    margin: 2,
+    margin: theme.spacing(2),
   },
 });
 
@@ -83,10 +94,9 @@ class ArtifactUpload extends Component {
      selectedFile: null,
      bloburl:null,
      name : '',
-    //  Please enter name of artifact here
      description : null,
-    //  Please enter tag here
-     category : ' ',
+     category : null,
+     categoryValue: {Pet: false,Instruments: false, Others: false},
      artifactTime : new Date(),
      user: null,
      visibility : [],
@@ -123,15 +133,30 @@ class ArtifactUpload extends Component {
     // setValues({...values,[name]: event.target.value});
   };
 
-  handleTimeChange = event => {
+  handleTimeChange = date => {
     this.setState ({
-      artifactTime: event.target.value
+      artifactTime: date
     });
   };
 
-  handleCategoryChange = event => {
+  handleCategoryPChange = event => {
     this.setState ({
-      category: event.target.value
+      category: event.target.value,
+      ...this.state.categoryValue.Pet = event.target.checked
+    });
+  }
+
+  handleCategoryIChange = event => {
+    this.setState ({
+      category: event.target.value,
+      ...this.state.categoryValue.Instruments = event.target.checked
+    });
+  }
+
+  handleCategoryOChange = event => {
+    this.setState ({
+      category: event.target.value,
+      ...this.state.categoryValue.Others = event.target.checked
     });
   }
 
@@ -185,80 +210,102 @@ class ArtifactUpload extends Component {
     const { user } = this.props.auth;
 
     return (
-      <div className="artifact">
-        <form className={classes.container} noValidate autoComplete="off">
-          <TextField
-            id="artifactName"
-            label="Artifact Name"
-            className={classes.textField}
-            value={this.state.name}
-            onChange={this.handleNameChange}
-            margin="normal"
-          />
-          <input type="file" onChange={this.fileSelectedHandler}/>
-          <Image src={this.state.bloburl} alt="unable to display" className={classNames(classes.imagePreview)}/>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              disableToolbar
-              variant="inline"
-              format="MM/dd/yyyy"
-              margin="normal"
-              id="ArtifactDate"
-              label="Artifact Date"
-              value={this.state.artifactTime}
-              onChange={this.handleTimeChange}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
-            />
-          </MuiPickersUtilsProvider>
-          <TextField
-            id="artifactTag"
-            label="Tag"
-            className={classes.textField}
-            value={this.state.category}
-            onChange={this.handleCategoryChange}
-            margin="normal"
-          />
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="select-multiple-chip">Visibility</InputLabel>
-            <Select
-              multiple
-              value={this.state.visibility}
-              onChange={this.handleVisibilityChange}
-              input={<Input id="select-multiple-chip" />}
-              renderValue={selected => (
-                <div className={classes.chips}>
-                  {selected.map(value => (
-                    <Chip key={value} label={value} className={classes.chip} />
+      <div className={classes.root}>
+        <form className={classes.container} autoComplete="on">
+          <Grid container alignItems="center" justify="center" spacing={0}>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                id="artifactName"
+                label="Artifact Name"
+                className={classes.textField}
+                value={this.state.name}
+                onChange={this.handleNameChange}
+                margin="normal"
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  format="MM/dd/yyyy"
+                  margin="normal"
+                  id="ArtifactDate"
+                  label="Artifact Date"
+                  value={this.state.artifactTime}
+                  onChange={this.handleTimeChange}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="select-multiple-chip">Visibility</InputLabel>
+                <Select
+                  multiple
+                  value={this.state.visibility}
+                  onChange={this.handleVisibilityChange}
+                  input={<Input id="select-multiple-chip" />}
+                  renderValue={selected => (
+                    <div className={classes.chips}>
+                      {selected.map(value => (
+                        <Chip key={value} label={value} className={classes.chip} />
+                      ))}
+                    </div>
+                  )}
+                  MenuProps={MenuProps}
+                >
+                  {this.state.username.map(name => (
+                    <MenuItem key={name} value={name}>
+                      {name}
+                    </MenuItem>
                   ))}
-                </div>
-              )}
-              MenuProps={MenuProps}
-            >
-              {this.state.username.map(name => (
-                <MenuItem key={name} value={name}>
-                  {name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <TextField
-            id="outlined-multiline-flexible"
-            label="Description"
-            multiline
-            rowsMax="4"
-            value={this.state.description}
-            onChange={this.handleDesChange}
-            className={classes.textField}
-            margin="normal"
-            helperText="Please enter description above"
-            variant="outlined"
-          />
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <input type="file" className={classes.textField} onChange={this.fileSelectedHandler}/>
+              <Image src={this.state.bloburl} alt="unable to display" className={classes.img}/>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControl component="fieldset" className={classes.formControl}>
+              <FormLabel component="legend">Please choose a category</FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  control={<Checkbox checked={this.state.categoryValue.Pet} onChange={this.handleCategoryPChange} value="Pets"/>}
+                  label="Pets"
+                />
+                <FormControlLabel
+                  control={<Checkbox checked={this.state.categoryValue.Instruments} onChange={this.handleCategoryIChange} value="Instruments"/>}
+                  label="Instruments"
+                />
+                <FormControlLabel
+                  control={<Checkbox checked={this.state.categoryValue.Others} onChange={this.handleCategoryOChange} value="Others"/>}
+                  label="Others"
+                />
+              </FormGroup>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="outlined-multiline-flexible"
+                label="Description"
+                multiline
+                rowsMax="4"
+                value={this.state.description}
+                onChange={this.handleDesChange}
+                className={classes.textField}
+                margin="normal"
+                helperText="Please enter description above"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item>
+              <Button variant="contained" size="large" color="secondary" onClick={this.fileUploadHandler}>Submit</Button>
+            </Grid>
+          </Grid>
         </form>
-        <button onClick={this.fileUploadHandler}>Submit</button>
       </div>
-
     );
   }
 }
