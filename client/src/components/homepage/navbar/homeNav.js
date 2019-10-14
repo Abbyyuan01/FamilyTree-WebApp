@@ -26,7 +26,9 @@ class HomeNav extends Component {
     this.state = {
       anchorEl: null, 
       open: false,
-      Transition: null,  
+      Transition: null, 
+      showLogin: true,
+      showAccount: false
     };
 
   }
@@ -52,7 +54,16 @@ class HomeNav extends Component {
   handleLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
+    this.setState({ showLogin:true, showAccount: false });
   };
+
+  componentWillMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.setState({ showLogin:false, showAccount:true });
+    }else{
+      this.setState({ showLogin:true, showAccount: false });
+    }
+  }
 
   render() {
     const { anchorEl } = this.state;
@@ -76,9 +87,10 @@ class HomeNav extends Component {
               <Link to="/aboutme">About Me</Link>
               <Link to="/contact">Contact</Link>
               <Link to="/contactus">Contact Us</Link>
-              <Link to="/login">Login</Link>
+              { this.state.showLogin ? <Link to="/login">Login</Link> : null }
               <Link to="/register">Register</Link>
               <div>
+              { this.state.showAccount ?
                   <IconButton
                     aria-owns={open ? 'menu-appbar' : null}
                     aria-haspopup="true"
@@ -87,6 +99,7 @@ class HomeNav extends Component {
                   >
                     <AccountCircle />
                   </IconButton>
+                    :null}
                   <Menu
                     id="menu-appbar"
                     anchorEl={anchorEl}

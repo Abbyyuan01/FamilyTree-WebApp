@@ -92,6 +92,7 @@ class ArtifactView extends Component {
         super(props);
         this.state = {
           artifacts: [],
+          filteredArtifacts: [],
           entered: false,
           photoIndex: 0,
           imageOpen: false,
@@ -120,6 +121,7 @@ class ArtifactView extends Component {
           this.updateWindowDimensions();
           window.addEventListener("resize", this.updateWindowDimensions);
     }
+
 
     componentWillUnmount() {
       window.removeEventListener("resize", this.updateWindowDimensions);
@@ -153,6 +155,9 @@ class ArtifactView extends Component {
         artifacts: this.state.artifacts.filter(el => el._id !== id)
       })
     }
+
+
+
 
     render (){
         const {classes, theme} = this.props;
@@ -189,27 +194,16 @@ class ArtifactView extends Component {
                   />
                   <Slide direction={"left"} in={this.state.entered}>
                   <GridList cellHeight={300} className={classes.gridList} cols={4} spacing={30}>
+            
                       <GridListTile key="Subheader" cols={4} style={{ height: 'auto' }}>
-                      {/* <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                          <SearchIcon />
-                        </div>
-                        <InputBase
-                          placeholder="Search…"
-                          classes={{
-                            root: classes.inputRoot,
-                            input: classes.inputInput,
-                          }}
-                          inputProps={{ 'aria-label': 'search' }}
-                        />
-                      </div> */}
                       {/* <ListSubheader component="div">December</ListSubheader> */}
                       </GridListTile>
                       {this.state.artifacts.map((artifact,index) => (
+                      
                       <GridListTile key={artifact._id + index}>
                           <img src={artifact.url} alt={artifact.name} onClick={() => {
                                 this.imageToggle(index);
-                              }}/>{" "}
+                              }}/>
                           <GridListTileBar
                           title={artifact.name}
                           subtitle={<span>by: {artifact.user.username}</span>}

@@ -24,7 +24,7 @@ const storage = new Storage({
     projectId: projectId,
     credentials:{
         client_email: process.env.CLIENT_EMAIL,
-        // private_key: process.env.GCS_KEYFILE.replace(/\\n/g, '\n')
+        private_key: process.env.GCS_KEYFILE.replace(/\\n/g, '\n')
     } 
 });
 
