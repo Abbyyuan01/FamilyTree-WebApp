@@ -46,6 +46,7 @@ const useStyles = theme => ({
   },
   textField: {
     margin: theme.spacing(2),
+    width: 200,
   },
   img: {
     width: 300,
@@ -194,6 +195,7 @@ class ArtifactUpload extends Component {
         })
         .then(res => {
           console.log(res);
+          alert("Artifact upload successfully! Please return View Page!!!");
           console.log("newInput")
         }).catch(err=>{
           console.log(err)

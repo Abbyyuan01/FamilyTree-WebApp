@@ -27,6 +27,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/DeleteRounded';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
+import Contact from '../../homepage/contact';
 
 const styles = theme => ({
   root: {
@@ -93,6 +94,7 @@ class ArtifactView extends Component {
         this.state = {
           artifacts: [],
           filteredArtifacts: [],
+          search: '',
           entered: false,
           photoIndex: 0,
           imageOpen: false,
@@ -110,7 +112,8 @@ class ArtifactView extends Component {
           .then(response => {
               if (response.data.length > 0) {
                   this.setState({
-                      artifacts: response.data
+                      artifacts: response.data,
+                      filteredArtifacts: response.data
                   })
               }
           })
@@ -156,11 +159,19 @@ class ArtifactView extends Component {
       })
     }
 
-
-
+    onKeyDown = event => {
+      if (event.target.value != null) {
+        this.setState({search: event.target.value.substr(0,20)}) 
+        // console.log(event.target.value)
+      }
+    }
 
     render (){
         const {classes, theme} = this.props;
+
+        let filteredArtifacts = this.state.artifacts.filter((artifact)=>{
+          return artifact.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+        })
 
         const singleArtifactButtons  =  [
           <IconButton aria-label="like" className={classes.margin}  onClick={this.handleLike}>
@@ -184,6 +195,7 @@ class ArtifactView extends Component {
                       input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
+                    onChange={this.onKeyDown}
                   />
                 </div>
               <Container component="main" maxWidth="lg">
@@ -198,7 +210,7 @@ class ArtifactView extends Component {
                       <GridListTile key="Subheader" cols={4} style={{ height: 'auto' }}>
                       {/* <ListSubheader component="div">December</ListSubheader> */}
                       </GridListTile>
-                      {this.state.artifacts.map((artifact,index) => (
+                      {filteredArtifacts.map((artifact,index) => (
                       
                       <GridListTile key={artifact._id + index}>
                           <img src={artifact.url} alt={artifact.name} onClick={() => {
