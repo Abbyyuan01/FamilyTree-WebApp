@@ -84,7 +84,7 @@ router.post('/uploadArtifacts', upload.single('image'), async (req, res) => {
             "category": req.body.category,
             "artifactTime": req.body.artifactTime,
             "user": req.body.user,
-            "visibility": req.body.visibility
+            "visibility": req.body.visibility.split(",")
         });
 
         newArtifact.save()

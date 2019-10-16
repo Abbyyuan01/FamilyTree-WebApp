@@ -79,15 +79,6 @@ const MenuProps = {
 };
 
 
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
 class ArtifactUpload extends Component {
   constructor( props ) {
     super( props );
@@ -258,7 +249,14 @@ class ArtifactUpload extends Component {
                   MenuProps={MenuProps}
                 >
                   {this.state.username.map(name => (
-                    <MenuItem key={name} value={name}>
+                    <MenuItem key={name} value={name}
+                       style={{
+                          fontWeight:
+                            this.state.name.indexOf(name) === -1
+                              ? theme.typography.fontWeightRegular
+                              : theme.typography.fontWeightMedium,
+                        }}
+                      >
                       {name}
                     </MenuItem>
                   ))}

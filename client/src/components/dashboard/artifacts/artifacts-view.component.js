@@ -28,6 +28,7 @@ import DeleteIcon from '@material-ui/icons/DeleteRounded';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import Contact from '../../homepage/contact';
+import { connect } from "react-redux";
 
 const styles = theme => ({
   root: {
@@ -168,8 +169,22 @@ class ArtifactView extends Component {
 
     render (){
         const {classes, theme} = this.props;
+        const { user } = this.props.auth;
 
-        let filteredArtifacts = this.state.artifacts.filter((artifact)=>{
+        var visibleUser;
+        let visibleArtifacts = this.state.artifacts.filter((artifact)=>{
+          console.log(artifact.visibility)
+           for (visibleUser of artifact.visibility){
+             console.log(visibleUser)
+             if (user.username == visibleUser){
+               return artifact
+             }
+           }
+        })
+
+        console.log(visibleArtifacts)
+
+        let filteredArtifacts = visibleArtifacts.filter((artifact)=>{
           return artifact.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
         })
 
@@ -288,7 +303,13 @@ class ArtifactView extends Component {
 
 ArtifactView.propTypes = {
     classes: PropTypes.object.isRequired,
-    theme: PropTypes.object.isRequired
+    theme: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired
   };
   
-export default withStyles(styles)(ArtifactView);
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+  
+export default connect(mapStateToProps)(withStyles(styles)(ArtifactView));
+
