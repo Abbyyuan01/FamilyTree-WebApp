@@ -58,6 +58,7 @@ class DashboardNav extends Component {
             >
               <Navigation>         
                 <Link to="/dashboard/">AtifactView</Link>
+                <Link to="/dashboard/myArtifact">MyArtifact</Link>    
                 <Link to="/dashboard/upload"> Upload Artifacts</Link>
                 <Link to="/dashboard/timeline">Timeline</Link>
                 <div>
@@ -100,8 +101,9 @@ class DashboardNav extends Component {
                 </Link>
               }
             >
-              <Navigation>            
+              <Navigation>       
                 <Link to="/dashboard/">AtifactView</Link>
+                <Link to="/dashboard/myArtifact">MyArtifact</Link>     
                 <Link to="/dashboard/upload"> Upload Artifacts</Link>
                 <Link to="/dashboard/timeline">Timeline</Link>
               </Navigation>

@@ -12,15 +12,25 @@ import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import Lightbox from "react-image-lightbox";
 import LikeIcon from "@material-ui/icons/FavoriteBorder"
 import ShareIcon from "@material-ui/icons/Share";
 import {Waypoint} from "react-waypoint";
 import Slide from "@material-ui/core/Slide";
 import "react-image-lightbox/style.css";
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/DeleteRounded';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
+import EditArtifact from './edit-artifacts.component';
 
 
 const styles = theme => ({
@@ -39,6 +49,10 @@ const styles = theme => ({
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
   },
+  // button: {
+  //   padding: '30px',
+  //   margin: theme.spacing(1)
+  // }
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -78,12 +92,13 @@ const styles = theme => ({
   },
 })
 
-class ArtifactView extends Component {
+class UploadedArtifact extends Component {
     constructor(props){
         super(props);
         this.state = {
           artifacts: [],
           filteredArtifacts: [],
+          EditArtifactId:null,
           search: '',
           entered: false,
           photoIndex: 0,
@@ -138,6 +153,28 @@ class ArtifactView extends Component {
       console.log("like");
     }
 
+    handleClickOpen = (id) => {
+        this.setState({
+          diaOpen: !this.state.diaOpen,
+          EditArtifactId: id
+        });
+    }
+
+
+    handleClose = () => {
+      this.setState({
+        diaOpen: !this.state.diaOpen
+      });
+    }
+
+    handleDelete(id) {
+      axios.delete('/artifacts/'+id)
+        .then(response => { console.log(response.data)});
+      this.setState({
+        artifacts: this.state.artifacts.filter(el => el._id !== id)
+      })
+    }
+
     onKeyDown = event => {
       if (event.target.value != null) {
         this.setState({search: event.target.value.substr(0,20)})
@@ -148,23 +185,18 @@ class ArtifactView extends Component {
         const {classes, theme} = this.props;
         const { user } = this.props.auth;
 
-        var visibleUser;
         let visibleArtifacts = this.state.artifacts.filter((artifact)=>{
-          console.log(artifact.visibility)
-           for (visibleUser of artifact.visibility){
-             console.log(visibleUser)
-             if (user.username === visibleUser){
+             if (user.username == artifact.user.username){
                return artifact
              }
            }
-        })
-
+        )
         console.log(visibleArtifacts)
-
-        
+       
         let filteredArtifacts = visibleArtifacts.filter((artifact)=>{
-          return artifact.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+            return artifact.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
         })
+        
 
         const singleArtifactButtons  =  [
           <IconButton aria-label="like" className={classes.margin}  onClick={this.handleLike}>
@@ -192,6 +224,22 @@ class ArtifactView extends Component {
                   />
                 </div>
               <Container component="main" maxWidth="lg">
+              <Dialog open={this.state.diaOpen} onClose={this.handleClose} aria-labelledby="update-form-title">
+                        <DialogTitle id="updateForm-dialog-title">Update Artifact Information</DialogTitle>
+                            <DialogContent>
+                              <DialogContentText>
+                                Please Change your update information below.
+                              </DialogContentText>           
+                              <EditArtifact editArtifactId={
+                                this.state.EditArtifactId
+                                } />
+                            </DialogContent>
+                            <DialogActions>
+                              <Button onClick={this.handleClose} color="primary">
+                                Cancel
+                              </Button>
+                           </DialogActions>
+                        </Dialog>
                   <Waypoint
                     onEnter={() => {
                       this.setState({ entered: true });
@@ -211,22 +259,30 @@ class ArtifactView extends Component {
                             <GridListTileBar
                             title={artifact.name}
                             subtitle={<span>by: {artifact.user.username}</span>}
-
-                            />      
+                            actionIcon={[
+                              <IconButton aria-label={'edit'} className={classes.icon} onClick={()=>{this.handleClickOpen(artifact._id)}}>
+                                <EditIcon />
+                              </IconButton>,
+                              <IconButton aria-label={'delete'} className={classes.icon} onClick={()=>{this.handleDelete(artifact._id)}}>
+                                <DeleteIcon />
+                              </IconButton>
+                            ]
+                            }
+                            />
                         </GridListTile>
                       ))}
                   </GridList>
-                  </Slide>{" "}
+                  </Slide>
                 </Container>
 
               {this.state.imageOpen ? (
               <Lightbox
                 mainSrc={filteredArtifacts[this.state.photoIndex].url}
                 nextSrc={
-                  filteredArtifacts[(this.state.photoIndex + 1) % filteredArtifacts.length].url
+                    filteredArtifacts[(this.state.photoIndex + 1) % filteredArtifacts.length].url
                 }
                 prevSrc={
-                  filteredArtifacts[
+                    filteredArtifacts[
                     (this.state.photoIndex + filteredArtifacts.length - 1) % filteredArtifacts.length
                   ].url
                 }
@@ -241,7 +297,7 @@ class ArtifactView extends Component {
                 }
                 onMoveNextRequest={() =>
                   this.setState({
-                    photoIndex: (this.state.photoIndex + 1) % filteredArtifacts.length
+                    photoIndex: (filteredArtifacts+ 1) % filteredArtifacts.length
                   })
                 }
                 imageTitle={`
@@ -270,7 +326,7 @@ class ArtifactView extends Component {
 }
 
 
-ArtifactView.propTypes = {
+UploadedArtifact.propTypes = {
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired
@@ -280,5 +336,5 @@ const mapStateToProps = state => ({
     auth: state.auth
 });
   
-export default connect(mapStateToProps)(withStyles(styles)(ArtifactView));
+export default connect(mapStateToProps)(withStyles(styles)(UploadedArtifact));
 

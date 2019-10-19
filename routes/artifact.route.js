@@ -82,7 +82,7 @@ router.post('/uploadArtifacts', upload.single('image'), async (req, res) => {
             "description": req.body.description,
             "editTime": Date.now(),
             "category": req.body.category,
-            "artifactTime": req.body.artifactTime,
+            "artifactTime": Date.parse(req.body.artifactTime),
             "user": req.body.user,
             "visibility": req.body.visibility.split(",")
         });
@@ -115,10 +115,21 @@ router.get('/artifacts/:id', async (req, res) => {
 });
 
 // update an artifact based on ID
-router.post('updateArtifacts/:id',async (req,res) => {
-    await Artifact.findByIdAndUpdate(req.params.id,req.body,{new:true})
-      .then(()=> res.json('Artifact update'))
-      .catch(err => res.status(400).json('Error:' + err));
+router.post('/updateArtifacts/:id',async (req,res) => {
+
+    await Artifact.findById(req.params.id)
+      .then(artifact => {
+        artifact.name = req.body.name
+        artifact.description = req.body.description
+        artifact.date = Date.parse(req.body.artifactTime)
+        artifact.visibility = req.body.visibility
+        artifact.category = req.body.category
+
+        artifact.save()
+            .then(() => res.json('Artufact updated!'))
+            .catch(err => res.status(400).json('Error: '+ err));  
+    })
+    .catch(err => res.status(400).json('Error:' + err));
 });
 
 //delete artifacts by id

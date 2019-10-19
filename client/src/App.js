@@ -26,6 +26,7 @@ import Timeline from "./components/dashboard/artifacts/artifacts-timeline.compon
 import HomeNav from "./components/homepage/navbar/homeNav";
 import DashboardNav from "./components/dashboard/navbar/dashboardNav";
 import ErrorBoundary from "./errorBoundary"
+import UploadedArtifact from "./components/dashboard/artifacts/uploaded-artifact.component";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -83,6 +84,7 @@ class App extends Component {
                     <Route exact path={`${path}/`} component={props => <ArtifactView {...props} />}/>
                     <Route exact path={`${path}/upload`} component={props => <ArtifactUpload {...props} />} />
                     <Route path={`${path}/timeline`} component={props => <Timeline {...props} />} />
+                    <Route path={`${path}/myArtifact`} component={props => <UploadedArtifact {...props} />} />
                   </DashboardNav>
                 )}
   
