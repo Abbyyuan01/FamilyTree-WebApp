@@ -14,16 +14,12 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 //import components
-import LandingPage from "./components/homepage/landingpage";
-import AboutMe from "./components/homepage/aboutme";
-import Contact from "./components/homepage/contact";
-import ContactUs from "./components/homepage/contactus";
+import Home from "./components/homepage/Home"
 import Login from "./components/authentication/login.component";
 import GenerateAccount from "./components/authentication/generate.component";
 import ArtifactUpload from "./components/dashboard/artifacts/artifacts-upload.component";
 import ArtifactView from "./components/dashboard/artifacts/artifacts-view.component";
 import Timeline from "./components/dashboard/artifacts/artifacts-timeline.component";
-import HomeNav from "./components/homepage/navbar/homeNav";
 import DashboardNav from "./components/dashboard/navbar/dashboardNav";
 import ErrorBoundary from "./errorBoundary"
 import UploadedArtifact from "./components/dashboard/artifacts/uploaded-artifact.component";
@@ -61,21 +57,10 @@ class App extends Component {
         <div>
           {/* <ScrollToTopWithRouter> */}
             <Switch>
-            <Route
-                path="/"
-                component={({ match: { path } }) => (
-                <HomeNav>
-                  <Route exact path="/" component={props => <LandingPage {...props} />} />
-                  <Route exact path={`${path}aboutme`}  component={props => <AboutMe {...props} />} />
-                  <Route exact path={`${path}contactus`} component={props => <ContactUs {...props} />} />
-                  <Route exact path={`${path}contact`} component={props => <Contact {...props} />} />    
+                  <Route exact path="/" component={props => <Home {...props} />} />  
                   <Route exact path="/login" component={props => <Login {...props} />} />
-                  <Route exact path="/register" component={props => <GenerateAccount {...props} />} />
-                </HomeNav>  
-                )}
-              />
-            </Switch>
-            
+                  <Route exact path="/register" component={props => <GenerateAccount {...props} />} />  
+            </Switch>    
             <Switch>
               <PrivateRoute
                 path="/dashboard"
