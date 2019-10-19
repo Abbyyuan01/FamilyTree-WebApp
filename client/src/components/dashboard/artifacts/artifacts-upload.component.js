@@ -9,8 +9,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import {
-  Typography,
-  Paper,
   Grid,
   Button,
   Checkbox,
@@ -46,7 +44,11 @@ const useStyles = theme => ({
   },
   textField: {
     margin: theme.spacing(2),
-    width: 200,
+    width: 300,
+  },
+  descriptionField :{
+    margin: theme.spacing(2),
+    width: 400,
   },
   img: {
     width: 300,
@@ -54,8 +56,8 @@ const useStyles = theme => ({
   },
   formControl: {
     margin: theme.spacing(2),
-    minWidth: 120,
-    maxWidth: 300,
+    minWidth: 300,
+    maxWidth: 350,
   },
   chips: {
     margin: theme.spacing(2),
@@ -294,7 +296,7 @@ class ArtifactUpload extends Component {
                 rowsMax="4"
                 value={this.state.description}
                 onChange={this.handleDesChange}
-                className={classes.textField}
+                className={classes.descriptionField}
                 margin="normal"
                 helperText="Please enter description above"
                 variant="outlined"

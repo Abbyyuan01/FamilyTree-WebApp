@@ -9,17 +9,13 @@ import { fade,withStyles } from '@material-ui/core/styles';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom'
 import Lightbox from "react-image-lightbox";
 import LikeIcon from "@material-ui/icons/FavoriteBorder"
-import LikedIcon from "@material-ui/icons/Favorite"
 import ShareIcon from "@material-ui/icons/Share";
-import Popover from '@material-ui/core/Popover';
 import {Waypoint} from "react-waypoint";
 import Slide from "@material-ui/core/Slide";
 import "react-image-lightbox/style.css";
@@ -27,8 +23,15 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/DeleteRounded';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from "@material-ui/core/TextField";
 import Contact from '../../homepage/contact';
 import { connect } from "react-redux";
+
 
 const styles = theme => ({
   root: {
@@ -99,6 +102,7 @@ class ArtifactView extends Component {
           entered: false,
           photoIndex: 0,
           imageOpen: false,
+          diaOpen: false,
           snackOpen: true,
           width: window.innerWidth,
           height: window.innerHeight,    
@@ -148,9 +152,26 @@ class ArtifactView extends Component {
       console.log("like");
     }
 
-    handleEdit () {
-
+    handleEdit(id) {
+      axios.post('updateArtifacts'+id)
+        .then(response => {console.log(response.data)});
+      this.setState({
+        artifacts:this.state.artifacts,
+        diaOpen: !this.state.diaOpen
+      });
     };
+
+    handleClickOpen = () => {
+      this.setState({
+        diaOpen: !this.state.diaOpen
+      });
+    }
+
+    handleClose = () => {
+      this.setState({
+        diaOpen: !this.state.diaOpen
+      });
+    }
 
     handleDelete(id) {
       axios.delete('/artifacts/'+id)
@@ -162,8 +183,7 @@ class ArtifactView extends Component {
 
     onKeyDown = event => {
       if (event.target.value != null) {
-        this.setState({search: event.target.value.substr(0,20)}) 
-        // console.log(event.target.value)
+        this.setState({search: event.target.value.substr(0,20)})
       }
     }
 
@@ -226,25 +246,56 @@ class ArtifactView extends Component {
                       {/* <ListSubheader component="div">December</ListSubheader> */}
                       </GridListTile>
                       {filteredArtifacts.map((artifact,index) => (
-                      
-                      <GridListTile key={artifact._id + index}>
-                          <img src={artifact.url} alt={artifact.name} onClick={() => {
-                                this.imageToggle(index);
-                              }}/>
-                          <GridListTileBar
-                          title={artifact.name}
-                          subtitle={<span>by: {artifact.user.username}</span>}
-                          actionIcon={[
-                            <IconButton aria-label={'edit'} className={classes.icon} onClick={this.handleEdit}>
-                              <EditIcon />
-                            </IconButton>,
-                            <IconButton aria-label={'delete'} className={classes.icon} onClick={()=>{this.handleDelete(artifact._id)}}>
-                              <DeleteIcon />
-                            </IconButton>
-                          ]
-                          }
-                          />
-                      </GridListTile>
+                        <GridListTile key={artifact._id + index}>
+                            <img src={artifact.url} alt={artifact.name} onClick={() => {
+                                  this.imageToggle(index);
+                                }}/>
+                            <GridListTileBar
+                            title={artifact.name}
+                            subtitle={<span>by: {artifact.user.username}</span>}
+                            actionIcon={[
+                              <IconButton aria-label={'edit'} className={classes.icon} onClick={this.handleClickOpen}>
+                                <EditIcon />
+                              </IconButton>,
+                              <IconButton aria-label={'delete'} className={classes.icon} onClick={()=>{this.handleDelete(artifact._id)}}>
+                                <DeleteIcon />
+                              </IconButton>
+                            ]
+                            }
+                            />
+                          <Dialog open={this.state.diaOpen} onClose={this.handleClose} aria-labelledby="update-form-title">
+                            <DialogTitle id="updateForm-dialog-title">Update</DialogTitle>
+                            <DialogContent>
+                              <DialogContentText>
+                                Please Change your update information below.
+                              </DialogContentText>
+                              <TextField
+                                autoFocus
+                                margin="dense"
+                                id="name"
+                                label="Email Address"
+                                type="email"
+                                fullWidth
+                              />
+                              <TextField
+                                autoFocus
+                                id="artifactName"
+                                label="Artifact Name"
+                                value={artifact.name}
+                                margin="normal"
+                                fullWidth
+                              />
+                            </DialogContent>
+                            <DialogActions>
+                              <Button onClick={this.handleClose} color="primary">
+                                Cancel
+                              </Button>
+                              {/*<Button onClick={this.handleEdit(artifact._id)} color="primary">*/}
+                              {/*  Update*/}
+                              {/*</Button>*/}
+                            </DialogActions>
+                          </Dialog>
+                        </GridListTile>
                       ))}
                   </GridList>
                   </Slide>{" "}
