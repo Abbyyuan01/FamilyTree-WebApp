@@ -36,7 +36,7 @@ const useStyles = theme => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
     background: theme.palette.primary.lightest,
-    height:1200
+    height:2000
   },
   container: {
     margin: theme.spacing(2),
