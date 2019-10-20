@@ -17,16 +17,6 @@ const styles = theme => ({
 		color: theme.palette.common.white,
 		textDecoration: 'none',
 	},
-<<<<<<< HEAD
-	top: 0,
-    zIndex: 1,
-  },
-  appBar: {
-    // boxShadow: 'none',
-    // color: theme.palette.common.white,
-    // paddingLeft: 0,
-    // paddingRight: 0,
-=======
     top: 0,
     zIndex: 1,
   },
@@ -46,21 +36,10 @@ const styles = theme => ({
     color: theme.palette.common.white,
     paddingLeft: 0,
     paddingRight: 0,
->>>>>>> COKECH2219-79-ChangeNavbar
   },
   grow: {
     flexGrow: 1,
   },
-<<<<<<< HEAD
-  toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
-=======
->>>>>>> COKECH2219-79-ChangeNavbar
   menuButton: {
 		[theme.breakpoints.down('md')]: {
 			marginLeft: 15,
@@ -77,10 +56,7 @@ const styles = theme => ({
     },
   },
   content: {
-<<<<<<< HEAD
-=======
     marginTop:60,
->>>>>>> COKECH2219-79-ChangeNavbar
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
   },
@@ -108,25 +84,14 @@ class DashNavBar extends Component {
     this.state = {
       anchorEl: null,
       mobileMoreAnchorEl: null,
-<<<<<<< HEAD
-      navAnchorEl: null,   
-=======
->>>>>>> COKECH2219-79-ChangeNavbar
     }
 
   }
 
-<<<<<<< HEAD
-  handleMenuClose = () => {
-    this.setState({ anchorEl: null })
-    this.handleMobileMenuClose()
-  }
-=======
   // handleMenuClose = () => {
   //   this.setState({ anchorEl: null })
   //   this.handleMobileMenuClose()
   // }
->>>>>>> COKECH2219-79-ChangeNavbar
 
   handleMobileMenuOpen = event => {
     this.setState({ mobileMoreAnchorEl: event.currentTarget })
@@ -137,19 +102,11 @@ class DashNavBar extends Component {
   }
 
   handleMenu = event => {
-<<<<<<< HEAD
-    this.setState({ navAnchorEl: event.currentTarget });
-  };
-
-  handleClose = () => {
-    this.setState({ navAnchorEl: null });
-=======
     this.setState({ anchorEl: event.currentTarget });
   };
 
   handleClose = () => {
     this.setState({ anchorEl: null });
->>>>>>> COKECH2219-79-ChangeNavbar
   };
 
   handleLogoutClick = e => {
@@ -159,19 +116,11 @@ class DashNavBar extends Component {
 
 
   render() {
-<<<<<<< HEAD
-    const { anchorEl, mobileMoreAnchorEl,navAnchorEl} = this.state
-    const { classes } = this.props
-    const isMenuOpen = Boolean(anchorEl)
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
-    const open = Boolean(navAnchorEl);
-=======
     const { anchorEl, mobileMoreAnchorEl} = this.state
     const { classes } = this.props
     const isMenuOpen = Boolean(anchorEl)
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
     const open = Boolean(anchorEl);
->>>>>>> COKECH2219-79-ChangeNavbar
     const { user } = this.props.auth;
 
     // const renderMobileMenu = (
@@ -229,81 +178,20 @@ class DashNavBar extends Component {
     return (
       <div className={classes.root}>
         {/* <CssBaseline /> */}
-<<<<<<< HEAD
-=======
         <div className={classes.barRoot}>
->>>>>>> COKECH2219-79-ChangeNavbar
         <AppBar 
           position="static" 
           className={'wrapper ' + classes.appBar}
           color="primary"
         >
           <Toolbar>
-<<<<<<< HEAD
-			<IconButton href="https://hourtech.ca" className={classes.menuButton} color="inherit" aria-label="Open drawer">
-=======
 			    <IconButton href="/" className={classes.menuButton} color="inherit" aria-label="Open drawer">
->>>>>>> COKECH2219-79-ChangeNavbar
               <img src={logo} alt="Family Tree Logo" />
             </IconButton>
             <h1 className={classes.title}>
               Family Tree
             </h1>
             <div className={classes.grow} />
-<<<<<<< HEAD
-            <div className={classes.sectionDesktop}>
-            
-			 <Button color="inherit">
-				<Typography variant="h6" color="inherit" noWrap>
-                    <Link to="/dashboard/">View Atifact</Link>
-				</Typography>
-              </Button>
-              <Button color="inherit">
-				 <Typography variant="h6" color="inherit" noWrap>
-                    <Link to="/dashboard/myArtifact">My Artifact</Link>  
-				 </Typography>
-              </Button>
-              <Button color="inherit">
-					<Typography variant="h6" color="inherit" noWrap>
-                        <Link to="/dashboard/upload"> Upload Artifacts</Link>
-					</Typography>
-              </Button>
-              <Button color="inherit">
-					<Typography variant="h6" color="inherit" noWrap>
-                        <Link to="/dashboard/timeline">Timeline</Link>
-					</Typography>
-              </Button>
-                  <IconButton
-                    aria-owns={open ? 'menu-appbar' : null}
-                    aria-haspopup="true"
-                    onClick={this.handleMenu}
-                    color="inherit"
-                  >
-                    <AccountCircle />
-                  </IconButton>
-                  <Menu
-                    id="menu-appbar"
-                    navAnchorEl={navAnchorEl}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    open={open}
-                    onClose={this.handleClose}
-                  >
-                    <Typography variant="h6" gutterBottom align="center">
-                      {user.username}
-                    </Typography>
-                    <Divider/>
-                    <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                    <MenuItem onClick={this.handleLogoutClick}>Log out</MenuItem>
-                  </Menu>
-            </div>
-=======
             <div className={classes.sectionDesktop}>      
               <Button color="inherit">
                 <Typography variant="h6" color="inherit" noWrap>
@@ -357,7 +245,6 @@ class DashNavBar extends Component {
                           </Menu>
                           </Button>
                     </div>
->>>>>>> COKECH2219-79-ChangeNavbar
             <div className={classes.sectionMobile}>
               <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
                 <MenuIcon />
@@ -365,10 +252,7 @@ class DashNavBar extends Component {
             </div>
           </Toolbar>
         </AppBar>
-<<<<<<< HEAD
-=======
         </div>
->>>>>>> COKECH2219-79-ChangeNavbar
         {/* {renderMobileMenu} */}  
         <main className={classes.content}>
                 {this.props.children}            
