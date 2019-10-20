@@ -41,11 +41,15 @@ class ArtifactTimeLine extends Component {
   
     render() { 
         const { classes, theme } = this.props;
+
+        var sorted_artifact = this.state.artifacts.sort((a,b) => {
+            return new Date(a.artifactTime) - new Date(b.artifactTime)
+        }).reverse();
         
         return ( 
         <div className={classes.root}>
         <Container component="main" maxWidth="lg">
-        {this.state.artifacts.map((artifact) => (
+        {sorted_artifact.map((artifact) => (
             <VerticalTimeline key={artifact._id}>
             <VerticalTimelineElement
                 className="vertical-timeline-element--work"  
