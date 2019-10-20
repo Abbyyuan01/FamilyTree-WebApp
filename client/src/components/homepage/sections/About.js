@@ -4,9 +4,9 @@ import { withStyles } from "@material-ui/core/styles";
 
 import bg from "./assets/img/about-bg2.jpg";
 import team from "./assets/img/team.png";
-import maggie from "./assets/img/maggie.jpg";
-import ta from "./assets/img/ta.jpg";
-import diego from "./assets/img/diego.jpg";
+import Iris from "./assets/img/Iris.jpg";
+import Abby from "./assets/img/Abby.png";
+import Nisha from "./assets/img/Nisha.png";
 
 
 const styles = theme => ({
@@ -64,27 +64,27 @@ const About = props => (
       <div className={"team-members-container " + props.classes.rootFlex}>
         <Member
           className={props.classes.flexChildren}
-          memberName="Maggie (MK) Vu"
-          memberImg={maggie}
-          memberRole="Project Manager / Lead Web"
+          memberName="MENGJIE TANG"
+          memberImg={Iris}
+          memberRole="Architecture Leader"
           memberLinkedin="http://linkedin.com/in/maggievu"
           memberGithub="https://github.com/maggievu"
         />
 
         <Member
           className={props.classes.flexChildren}
-          memberName="Diego Rodrigues"
-          memberImg={diego}
-          memberRole="Lead Android / Frontend"
+          memberName="NISHA SV Lingam"
+          memberImg={Nisha}
+          memberRole="Product Owner"
           memberLinkedin="http://linkedin.com/in/diegoro"
           memberGithub="https://github.com/dit0"
         />
 
         <Member
           className={props.classes.flexChildren}
-          memberName="Noppawit Hansompob"
-          memberImg={ta}
-          memberRole="Lead iOS / Backend"
+          memberName="YUAN YUAN"
+          memberImg={Abby}
+          memberRole="Scrum Master"
           memberLinkedin="http://linkedin.com/in/mmadhu1310"
           memberGithub="https://github.com/meet-madhu1310"
         />

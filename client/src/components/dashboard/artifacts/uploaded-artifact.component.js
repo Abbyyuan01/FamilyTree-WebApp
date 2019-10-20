@@ -248,7 +248,7 @@ class UploadedArtifact extends Component {
                   <GridList cellHeight={300} className={classes.gridList} cols={4} spacing={30}>
             
                       <GridListTile key="Subheader" cols={4} style={{ height: 'auto' }}>
-                        <ListSubheader component="div">December</ListSubheader>
+                        {/* <ListSubheader component="div">December</ListSubheader> */}
                       </GridListTile>
                       {filteredArtifacts.map((artifact,index) => (
                         <GridListTile key={artifact._id + index}>
