@@ -24,7 +24,6 @@ import {
   FormControlLabel,
 } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
-import Image from 'material-ui-image';
 import { connect } from "react-redux";
 import {
   MuiPickersUtilsProvider,
@@ -44,15 +43,16 @@ const useStyles = theme => ({
   },
   textField: {
     margin: theme.spacing(2),
-    width: 300,
+    display: 'flex',
+    maxWidth: 300,
   },
   descriptionField :{
     margin: theme.spacing(2),
-    width: 400,
+    display: 'flex',
+    maxWidth: 500,
   },
   img: {
-    width: 300,
-    height: 300,
+    margin: theme.spacing(2),
   },
   formControl: {
     margin: theme.spacing(2),
@@ -138,34 +138,34 @@ class ArtifactUpload extends Component {
       category: event.target.value,
       ...this.state.categoryValue.Pet = event.target.checked
     });
-  }
+  };
 
   handleCategoryIChange = event => {
     this.setState ({
       category: event.target.value,
       ...this.state.categoryValue.Instruments = event.target.checked
     });
-  }
+  };
 
   handleCategoryOChange = event => {
     this.setState ({
       category: event.target.value,
       ...this.state.categoryValue.Others = event.target.checked
     });
-  }
+  };
 
   handleVisibilityChange = event => {
     this.setState({
       visibility: event.target.value
     });
     console.log(this.state.visibility);
-  }
+  };
 
   handleDesChange = event => {
     this.setState ({
       description: event.target.value
     });
-  }
+  };
 
   fileUploadHandler = () => {
     const newInput = new FormData();
@@ -226,6 +226,7 @@ class ArtifactUpload extends Component {
                   id="ArtifactDate"
                   label="Artifact Date"
                   value={this.state.artifactTime}
+                  className={classes.textField}
                   onChange={this.handleTimeChange}
                   KeyboardButtonProps={{
                     'aria-label': 'change date',
@@ -267,7 +268,7 @@ class ArtifactUpload extends Component {
             </Grid>
             <Grid item xs={12}>
               <input type="file" className={classes.textField} onChange={this.fileSelectedHandler}/>
-              <Image src={this.state.bloburl} alt="unable to display" className={classes.img}/>
+              <img src={this.state.bloburl} alt="unable to display" width="50%" height="50%" className={classes.img}/>
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl component="fieldset" className={classes.formControl}>
