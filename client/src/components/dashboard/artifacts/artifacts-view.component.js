@@ -5,7 +5,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import GridList from '@material-ui/core/GridList';
-import ListSubheader from '@material-ui/core/ListSubheader'
+import Grid from '@material-ui/core/Grid'
 import { fade,withStyles } from '@material-ui/core/styles';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -105,7 +105,10 @@ class ArtifactView extends Component {
           snackOpen: true,
           width: window.innerWidth,
           height: window.innerHeight, 
-          author: ''  
+          author : '', 
+          username: [],
+          category: '',
+          artifacttest:[]
         } 
        
         this.handleLike = this.handleLike.bind(this);
@@ -118,13 +121,24 @@ class ArtifactView extends Component {
               if (response.data.length > 0) {
                   this.setState({
                       artifacts: response.data,
-                      filteredArtifacts: response.data
+                      filteredArtifacts: response.data,
                   })
               }
           })
           .catch((error) => {
             console.log(error);
           })
+
+          axios.get('/users')
+          .then(res => {
+            if (res.data.length > 0) {
+              this.setState({
+                username: res.data.map(user => user.username),
+              })
+            }
+          }).catch((err) => {
+            console.log(err);
+        })
 
           this.updateWindowDimensions();
           window.addEventListener("resize", this.updateWindowDimensions);
@@ -161,6 +175,10 @@ class ArtifactView extends Component {
     handleAuthorChange = event => {
       this.setState({ author: event.target.value });
     };
+
+    handleCateChange = event => {
+      this.setState({ category: event.target.value });
+    };
   
 
     render (){
@@ -180,10 +198,27 @@ class ArtifactView extends Component {
 
         console.log(visibleArtifacts)
 
+        let artifacttest = visibleArtifacts;
+
+        if(this.state.author!==''||this.state.category!==''){
+          artifacttest = artifacttest.filter((artifact)=>{
+            if(artifact.username === this.state.author && artifact.category === this.state.category){
+              return artifact;
+            }else if(artifact.user.username === this.state.author){
+              return artifact 
+            }else if(artifact.category === this.state.category){
+              return artifact 
+            }
         
-        let filteredArtifacts = visibleArtifacts.filter((artifact)=>{
+          })
+      }
+
+        
+        let filteredArtifacts = artifacttest.filter((artifact)=>{
           return artifact.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
         })
+
+       
 
         const singleArtifactButtons  =  [
           <IconButton aria-label="like" className={classes.margin}  onClick={this.handleLike}>
@@ -196,7 +231,7 @@ class ArtifactView extends Component {
 
         return (
             <div className={classes.root}>
-              <div className={classes.search}>
+                <div className={classes.search}>
                   <div className={classes.searchIcon}>
                     <SearchIcon />
                   </div>
@@ -211,17 +246,7 @@ class ArtifactView extends Component {
                   />
                 </div>
               <Container component="main" maxWidth="lg">
-                  <Waypoint
-                    onEnter={() => {
-                      this.setState({ entered: true });
-                    }}
-                  />
-                  <Slide direction={"left"} in={this.state.entered}>
-                  <GridList cellHeight={300} className={classes.gridList} cols={4} spacing={30}>
-            
-                      <GridListTile key="Subheader" cols={4} style={{ height: 'auto' }}>
-                      <ListSubheader component="div">
-                      <form className={classes.root} autoComplete="off">
+                <form className={classes.root} autoComplete="off">
                           <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="age-simple">Author</InputLabel>
                             <Select
@@ -232,17 +257,46 @@ class ArtifactView extends Component {
                                 id: 'author-simple',
                               }}
                             >
-                              <MenuItem value="">
+                              {/* <MenuItem value="">
                                 <em>None</em>
-                              </MenuItem>
-                              <MenuItem value={10}>Ten</MenuItem>
-                              <MenuItem value={20}>Twenty</MenuItem>
-                              <MenuItem value={30}>Thirty</MenuItem>
+                              </MenuItem> */}
+                              {this.state.username.map(name => (
+                            <MenuItem key={name} value={name}>
+                            {name}
+                           </MenuItem>
+                          ))}
                             </Select>
                           </FormControl>
-                          </form>
-                      </ListSubheader>
-                      </GridListTile>
+                          <FormControl className={classes.formControl}>
+                            <InputLabel htmlFor="age-simple">Category</InputLabel>
+                            <Select
+                              value={this.state.category}
+                              onChange={this.handleCateChange}
+                              inputProps={{
+                                name: 'Category',
+                                id: 'Category-simple',
+                              }}
+                            >
+                            <MenuItem value="Pets">
+                             Pets
+                           </MenuItem >
+                           <MenuItem value="Instruments">
+                            Instruments
+                           </MenuItem>
+                           <MenuItem value="Others" >
+                            Others
+                           </MenuItem>
+                          ))}
+                            </Select>
+                          </FormControl>
+                </form>
+                  <Waypoint
+                    onEnter={() => {
+                      this.setState({ entered: true });
+                    }}
+                  />
+                  <Slide direction={"left"} in={this.state.entered}>
+                  <GridList cellHeight={300} className={classes.gridList} cols={4} spacing={30}>
                       {filteredArtifacts.map((artifact,index) => (
                         <GridListTile key={artifact._id + index}>
                             <img src={artifact.url} alt={artifact.name} onClick={() => {
@@ -304,6 +358,7 @@ class ArtifactView extends Component {
                 
               />
             ) : null}
+            {/* </Grid> */}
           </div>
         )
     }

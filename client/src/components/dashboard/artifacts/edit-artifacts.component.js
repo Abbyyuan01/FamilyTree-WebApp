@@ -196,7 +196,10 @@ class EditArtifact extends Component {
     console.log(editedArtifact);
 
     axios.post('/updateArtifacts/' + this.props.editArtifactId, editedArtifact)
-      .then(res => console.log(res.data))
+      .then(res => {
+        alert("Update Artifact Information Successfully!");
+        console.log(res.data)
+      })
       .catch(error => console.log(error));
   }
 
@@ -228,8 +231,7 @@ class EditArtifact extends Component {
                   id="ArtifactDate"
                   className={classes.textField}
                   value={this.state.artifactTime}
-                  // defaultValue={this.state.artifactTime}
-                  selected={this.state.artifactTime}
+                  defaultValue={new Date(this.state.artifactTime)}
                   onChange={this.handleTimeChange}
                   KeyboardButtonProps={{
                     'aria-label': 'change date',
@@ -244,7 +246,6 @@ class EditArtifact extends Component {
                   multiple
                   value={this.state.visibility}
                   selected={this.state.visibility}
-                  // defaultValue={this.state.visibility}
                   onChange={this.handleVisibilityChange}
                   input={<Input id="select-multiple-chip" />}
                   renderValue={selected => (
@@ -269,15 +270,21 @@ class EditArtifact extends Component {
               <FormLabel component="legend">Please choose a category</FormLabel>
               <FormGroup>
                 <FormControlLabel
-                  control={<Checkbox checked={this.state.categoryValue.Pet} onChange={this.handleCategoryPChange} value="Pets"/>}
+                  control={<Checkbox 
+                    checked={this.state.categoryValue.Pet} 
+                    onChange={this.handleCategoryPChange} 
+                    value="Pets"
+                    />}
                   label="Pets"
                 />
                 <FormControlLabel
-                  control={<Checkbox checked={this.state.categoryValue.Instruments} onChange={this.handleCategoryIChange} value="Instruments"/>}
+                  control={<Checkbox checked={this.state.categoryValue.Instruments} onChange={this.handleCategoryIChange} value="Instruments"
+                  />}
                   label="Instruments"
                 />
                 <FormControlLabel
-                  control={<Checkbox checked={this.state.categoryValue.Others} onChange={this.handleCategoryOChange} value="Others"/>}
+                  control={<Checkbox checked={this.state.categoryValue.Others} onChange={this.handleCategoryOChange} value="Others"
+                  defaultValue={this.state.category}/>}
                   label="Others"
                 />
               </FormGroup>

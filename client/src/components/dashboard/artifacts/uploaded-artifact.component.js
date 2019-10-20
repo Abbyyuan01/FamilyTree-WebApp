@@ -5,6 +5,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import GridList from '@material-ui/core/GridList';
+import ListSubheader from '@material-ui/core/ListSubheader'
 import { fade,withStyles } from '@material-ui/core/styles';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -28,7 +29,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
 import EditArtifact from './edit-artifacts.component';
 
@@ -39,7 +39,7 @@ const styles = theme => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    margin: theme.spacing(5)
+    margin: theme.spacing(4),
   },
   gridList: {
     width: 'flex',
@@ -49,10 +49,6 @@ const styles = theme => ({
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
   },
-  // button: {
-  //   padding: '30px',
-  //   margin: theme.spacing(1)
-  // }
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -160,7 +156,6 @@ class UploadedArtifact extends Component {
         });
     }
 
-
     handleClose = () => {
       this.setState({
         diaOpen: !this.state.diaOpen
@@ -224,6 +219,11 @@ class UploadedArtifact extends Component {
                   />
                 </div>
               <Container component="main" maxWidth="lg">
+              <Waypoint
+                    onEnter={() => {
+                      this.setState({ entered: true });
+                    }}
+                  />
               <Dialog open={this.state.diaOpen} onClose={this.handleClose} aria-labelledby="update-form-title">
                         <DialogTitle id="updateForm-dialog-title">Update Artifact Information</DialogTitle>
                             <DialogContent>
@@ -235,21 +235,20 @@ class UploadedArtifact extends Component {
                                 } />
                             </DialogContent>
                             <DialogActions>
+                            {/* <Button onClick={this.handleEdit} color="primary">
+                                Edit
+                              </Button> */}
                               <Button onClick={this.handleClose} color="primary">
-                                Cancel
+                                Close
                               </Button>
                            </DialogActions>
                         </Dialog>
-                  <Waypoint
-                    onEnter={() => {
-                      this.setState({ entered: true });
-                    }}
-                  />
+                
                   <Slide direction={"left"} in={this.state.entered}>
                   <GridList cellHeight={300} className={classes.gridList} cols={4} spacing={30}>
             
                       <GridListTile key="Subheader" cols={4} style={{ height: 'auto' }}>
-                      {/* <ListSubheader component="div">December</ListSubheader> */}
+                        <ListSubheader component="div">December</ListSubheader>
                       </GridListTile>
                       {filteredArtifacts.map((artifact,index) => (
                         <GridListTile key={artifact._id + index}>
