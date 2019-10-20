@@ -23,9 +23,12 @@ import Timeline from "./components/dashboard/artifacts/artifacts-timeline.compon
 import ErrorBoundary from "./errorBoundary"
 import UploadedArtifact from "./components/dashboard/artifacts/uploaded-artifact.component";
 import DashNavBar from "./components/dashboard/navbar/dashBoardNavbar";
+<<<<<<< HEAD
+=======
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 // import Footer from "./components/homepage/Footer"
 import "./css/App.css";
+>>>>>>> COKECH2219-79-ChangeNavbar
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -116,7 +119,11 @@ class App extends Component {
                     <Route exact path={`${path}/upload`} component={props => <ArtifactUpload {...props} />} />
                     <Route path={`${path}/timeline`} component={props => <Timeline {...props} />} />
                     <Route path={`${path}/myArtifact`} component={props => <UploadedArtifact {...props} />} />
+<<<<<<< HEAD
+                  </DashNavBar>
+=======
                   </DashNavBar>  
+>>>>>>> COKECH2219-79-ChangeNavbar
                 )}
   
               />
