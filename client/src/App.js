@@ -23,6 +23,7 @@ import Timeline from "./components/dashboard/artifacts/artifacts-timeline.compon
 import DashboardNav from "./components/dashboard/navbar/dashboardNav";
 import ErrorBoundary from "./errorBoundary"
 import UploadedArtifact from "./components/dashboard/artifacts/uploaded-artifact.component";
+import DashNavBar from "./components/dashboard/navbar/dashBoardNavbar";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -65,12 +66,12 @@ class App extends Component {
               <PrivateRoute
                 path="/dashboard"
                 component={({ match: { path } }) => (
-                  <DashboardNav>
+                  <DashNavBar>
                     <Route exact path={`${path}/`} component={props => <ArtifactView {...props} />}/>
                     <Route exact path={`${path}/upload`} component={props => <ArtifactUpload {...props} />} />
                     <Route path={`${path}/timeline`} component={props => <Timeline {...props} />} />
                     <Route path={`${path}/myArtifact`} component={props => <UploadedArtifact {...props} />} />
-                  </DashboardNav>
+                  </DashNavBar>
                 )}
   
               />

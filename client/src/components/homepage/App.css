@@ -21,9 +21,10 @@ h6 {
 
 h2 {
   color: #154b9c;
-  font-size: 2rem;
+  font-size: 3rem;
   margin-top: 0;
-  padding-top: 90px;
+  font-weight: 600;
+  padding-top: 20px;
 }
 
 #contact {

@@ -86,9 +86,6 @@ class NavBar extends Component {
 
   }
 
-  handleProfileMenuOpen = event => {
-    this.setState({ anchorEl: event.currentTarget })
-  }
 
   handleMenuClose = () => {
     this.setState({ anchorEl: null })
@@ -286,7 +283,7 @@ class NavBar extends Component {
             </div>
           </Toolbar>
           {/* <Snackbar
-            open={this.state.open1}
+            open1={this.state.open1}
             onClose={this.handleSnackbarClose}
             TransitionComponent={this.state.Transition}
             ContentProps={{
