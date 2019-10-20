@@ -311,7 +311,7 @@ class UploadedArtifact extends Component {
                      {filteredArtifacts[this.state.photoIndex].description}
                      </Typography>
                      <Typography variant="subtitle2" gutterBottom>
-                     {filteredArtifacts[this.state.photoIndex].artifactTime}
+                     {new Date(filteredArtifacts[this.state.photoIndex].artifactTime).toLocaleDateString()}
                      </Typography>
                   </div> 
                                             

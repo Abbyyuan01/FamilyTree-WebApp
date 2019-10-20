@@ -5,6 +5,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import GridList from '@material-ui/core/GridList';
+import ListSubheader from '@material-ui/core/ListSubheader'
 import { fade,withStyles } from '@material-ui/core/styles';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -21,6 +22,10 @@ import "react-image-lightbox/style.css";
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import { connect } from "react-redux";
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 
 const styles = theme => ({
@@ -29,7 +34,7 @@ const styles = theme => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    margin: theme.spacing(5)
+    margin: theme.spacing(1),
   },
   gridList: {
     width: 'flex',
@@ -62,6 +67,13 @@ const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing.unit * 2,
+  },
   inputRoot: {
     color: 'inherit',
   },
@@ -84,6 +96,7 @@ class ArtifactView extends Component {
         this.state = {
           artifacts: [],
           filteredArtifacts: [],
+          date: new Date().toLocaleString(),
           search: '',
           entered: false,
           photoIndex: 0,
@@ -91,7 +104,8 @@ class ArtifactView extends Component {
           diaOpen: false,
           snackOpen: true,
           width: window.innerWidth,
-          height: window.innerHeight,    
+          height: window.innerHeight, 
+          author: ''  
         } 
        
         this.handleLike = this.handleLike.bind(this);
@@ -143,6 +157,11 @@ class ArtifactView extends Component {
         this.setState({search: event.target.value.substr(0,20)})
       }
     }
+
+    handleAuthorChange = event => {
+      this.setState({ author: event.target.value });
+    };
+  
 
     render (){
         const {classes, theme} = this.props;
@@ -201,7 +220,28 @@ class ArtifactView extends Component {
                   <GridList cellHeight={300} className={classes.gridList} cols={4} spacing={30}>
             
                       <GridListTile key="Subheader" cols={4} style={{ height: 'auto' }}>
-                      {/* <ListSubheader component="div">December</ListSubheader> */}
+                      <ListSubheader component="div">
+                      <form className={classes.root} autoComplete="off">
+                          <FormControl className={classes.formControl}>
+                            <InputLabel htmlFor="age-simple">Author</InputLabel>
+                            <Select
+                              value={this.state.author}
+                              onChange={this.handleAuthorChange}
+                              inputProps={{
+                                name: 'Author',
+                                id: 'author-simple',
+                              }}
+                            >
+                              <MenuItem value="">
+                                <em>None</em>
+                              </MenuItem>
+                              <MenuItem value={10}>Ten</MenuItem>
+                              <MenuItem value={20}>Twenty</MenuItem>
+                              <MenuItem value={30}>Thirty</MenuItem>
+                            </Select>
+                          </FormControl>
+                          </form>
+                      </ListSubheader>
                       </GridListTile>
                       {filteredArtifacts.map((artifact,index) => (
                         <GridListTile key={artifact._id + index}>
@@ -255,7 +295,7 @@ class ArtifactView extends Component {
                      {filteredArtifacts[this.state.photoIndex].description}
                      </Typography>
                      <Typography variant="subtitle2" gutterBottom>
-                     {filteredArtifacts[this.state.photoIndex].artifactTime}
+                     {new Date(filteredArtifacts[this.state.photoIndex].artifactTime).toLocaleDateString()}
                      </Typography>
                   </div> 
                                             

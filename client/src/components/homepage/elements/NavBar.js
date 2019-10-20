@@ -86,9 +86,6 @@ class NavBar extends Component {
 
   }
 
-  handleProfileMenuOpen = event => {
-    this.setState({ anchorEl: event.currentTarget })
-  }
 
   handleMenuClose = () => {
     this.setState({ anchorEl: null })
@@ -196,7 +193,7 @@ class NavBar extends Component {
           color="primary"
         >
           <Toolbar>
-						<IconButton href="https://hourtech.ca" className={classes.menuButton} color="inherit" aria-label="Open drawer">
+						<IconButton href="/" className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <img src={logo} alt="Family Tree Logo" />
             </IconButton>
             <h1 className={classes.title}>
@@ -286,7 +283,7 @@ class NavBar extends Component {
             </div>
           </Toolbar>
           {/* <Snackbar
-            open={this.state.open1}
+            open1={this.state.open1}
             onClose={this.handleSnackbarClose}
             TransitionComponent={this.state.Transition}
             ContentProps={{
