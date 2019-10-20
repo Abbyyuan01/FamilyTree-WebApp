@@ -1,10 +1,19 @@
 import React, { Component } from 'react'
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
+import { withStyles } from '@material-ui/core/styles'
+import PropTypes from 'prop-types';
 import 'react-vertical-timeline-component/style.min.css';
 import LikeIcon from "@material-ui/icons/FavoriteBorder"
 import axios from 'axios';
 import Container from '@material-ui/core/Container';
 
+const styles = theme => ({
+    root: {
+        display:"flex",
+        background: theme.palette.primary.lightest,
+    }
+    
+})
 class ArtifactTimeLine extends Component {
 
     constructor(props) {
@@ -31,15 +40,17 @@ class ArtifactTimeLine extends Component {
     }
   
     render() { 
+        const { classes, theme } = this.props;
         
         return ( 
+        <div className={classes.root}>
         <Container component="main" maxWidth="lg">
         {this.state.artifacts.map((artifact) => (
             <VerticalTimeline key={artifact._id}>
             <VerticalTimelineElement
-                className="vertical-timeline-element--work"
-                date={artifact.artifactTime}
-                iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                className="vertical-timeline-element--work"  
+                date={new Date(artifact.artifactTime).toLocaleDateString()}
+                iconStyle={{ background: "#13bcd4", color: '#fff' }}
                 icon={<LikeIcon />}
             >
                 <h3 className="vertical-timeline-element-title">{artifact.name}</h3>
@@ -52,8 +63,14 @@ class ArtifactTimeLine extends Component {
             </VerticalTimeline>
         ))}
         </Container>
+        </div>
          );
     }
 }
+
+ArtifactTimeLine.propTypes = {
+    classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired
+  };  
  
-export default ArtifactTimeLine;
+export default withStyles(styles)(ArtifactTimeLine);

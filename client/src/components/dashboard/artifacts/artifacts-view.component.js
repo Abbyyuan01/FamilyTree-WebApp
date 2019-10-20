@@ -29,7 +29,7 @@ const styles = theme => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    margin: theme.spacing(5)
+    margin: theme.spacing(1),
   },
   gridList: {
     width: 'flex',

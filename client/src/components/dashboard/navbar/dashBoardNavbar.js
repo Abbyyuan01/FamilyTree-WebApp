@@ -17,24 +17,28 @@ const styles = theme => ({
 		color: theme.palette.common.white,
 		textDecoration: 'none',
 	},
-	top: 0,
+    top: 0,
+    zIndex: 1,
+  },
+  barRoot: {
+    width: '100%',
+    background: theme.palette.primary.main,
+	"& a": {
+		color: theme.palette.common.white,
+		textDecoration: 'none',
+	},
+    top: 0,
+    position: 'fixed',
     zIndex: 1,
   },
   appBar: {
-    // boxShadow: 'none',
-    // color: theme.palette.common.white,
-    // paddingLeft: 0,
-    // paddingRight: 0,
+    boxShadow: 'none',
+    color: theme.palette.common.white,
+    paddingLeft: 0,
+    paddingRight: 0,
   },
   grow: {
     flexGrow: 1,
-  },
-  toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
   },
   menuButton: {
 		[theme.breakpoints.down('md')]: {
@@ -52,6 +56,7 @@ const styles = theme => ({
     },
   },
   content: {
+    marginTop:60,
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
   },
@@ -79,15 +84,14 @@ class DashNavBar extends Component {
     this.state = {
       anchorEl: null,
       mobileMoreAnchorEl: null,
-      navAnchorEl: null,   
     }
 
   }
 
-  handleMenuClose = () => {
-    this.setState({ anchorEl: null })
-    this.handleMobileMenuClose()
-  }
+  // handleMenuClose = () => {
+  //   this.setState({ anchorEl: null })
+  //   this.handleMobileMenuClose()
+  // }
 
   handleMobileMenuOpen = event => {
     this.setState({ mobileMoreAnchorEl: event.currentTarget })
@@ -98,11 +102,11 @@ class DashNavBar extends Component {
   }
 
   handleMenu = event => {
-    this.setState({ navAnchorEl: event.currentTarget });
+    this.setState({ anchorEl: event.currentTarget });
   };
 
   handleClose = () => {
-    this.setState({ navAnchorEl: null });
+    this.setState({ anchorEl: null });
   };
 
   handleLogoutClick = e => {
@@ -112,11 +116,11 @@ class DashNavBar extends Component {
 
 
   render() {
-    const { anchorEl, mobileMoreAnchorEl,navAnchorEl} = this.state
+    const { anchorEl, mobileMoreAnchorEl} = this.state
     const { classes } = this.props
     const isMenuOpen = Boolean(anchorEl)
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
-    const open = Boolean(navAnchorEl);
+    const open = Boolean(anchorEl);
     const { user } = this.props.auth;
 
     // const renderMobileMenu = (
@@ -174,71 +178,73 @@ class DashNavBar extends Component {
     return (
       <div className={classes.root}>
         {/* <CssBaseline /> */}
+        <div className={classes.barRoot}>
         <AppBar 
           position="static" 
           className={'wrapper ' + classes.appBar}
           color="primary"
         >
           <Toolbar>
-			<IconButton href="https://hourtech.ca" className={classes.menuButton} color="inherit" aria-label="Open drawer">
+			    <IconButton href="/" className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <img src={logo} alt="Family Tree Logo" />
             </IconButton>
             <h1 className={classes.title}>
               Family Tree
             </h1>
             <div className={classes.grow} />
-            <div className={classes.sectionDesktop}>
-            
-			 <Button color="inherit">
-				<Typography variant="h6" color="inherit" noWrap>
-                    <Link to="/dashboard/">View Atifact</Link>
-				</Typography>
-              </Button>
+            <div className={classes.sectionDesktop}>      
               <Button color="inherit">
-				 <Typography variant="h6" color="inherit" noWrap>
-                    <Link to="/dashboard/myArtifact">My Artifact</Link>  
-				 </Typography>
-              </Button>
-              <Button color="inherit">
-					<Typography variant="h6" color="inherit" noWrap>
+                <Typography variant="h6" color="inherit" noWrap>
+                            <Link to="/dashboard/">View Atifact</Link>
+                </Typography>
+                      </Button>
+                      <Button color="inherit">
+                <Typography variant="h6" color="inherit" noWrap>
+                            <Link to="/dashboard/myArtifact">My Artifact</Link>  
+                </Typography>
+                      </Button>
+                      <Button color="inherit">
+                  <Typography variant="h6" color="inherit" noWrap>
                         <Link to="/dashboard/upload"> Upload Artifacts</Link>
-					</Typography>
-              </Button>
-              <Button color="inherit">
-					<Typography variant="h6" color="inherit" noWrap>
+                  </Typography>
+                      </Button>
+                      <Button color="inherit">
+                  <Typography variant="h6" color="inherit" noWrap>
                         <Link to="/dashboard/timeline">Timeline</Link>
-					</Typography>
-              </Button>
-                  <IconButton
-                    aria-owns={open ? 'menu-appbar' : null}
-                    aria-haspopup="true"
-                    onClick={this.handleMenu}
-                    color="inherit"
-                  >
-                    <AccountCircle />
-                  </IconButton>
-                  <Menu
-                    id="menu-appbar"
-                    navAnchorEl={navAnchorEl}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    open={open}
-                    onClose={this.handleClose}
-                  >
-                    <Typography variant="h6" gutterBottom align="center">
-                      {user.username}
-                    </Typography>
-                    <Divider/>
-                    <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                    <MenuItem onClick={this.handleLogoutClick}>Log out</MenuItem>
-                  </Menu>
-            </div>
+                  </Typography>
+                      </Button>
+                      <Button color="inherit" >
+                      <IconButton
+                            aria-owns={open ? 'menu-appbar' : null}
+                            aria-haspopup="true"
+                            onClick={this.handleMenu}
+                            color="inherit"
+                          >
+                            <AccountCircle />
+                          </IconButton>
+                          <Menu 
+                            id="menu-appbar"
+                            anchorEl={anchorEl}
+                            anchorOrigin={{
+                              vertical: 'top',
+                              horizontal: 'right',
+                            }}
+                            transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'right',
+                            }}
+                            open={open}
+                            onClose={this.handleClose}
+                          >
+                            <Typography variant="h6" gutterBottom align="center">
+                              {user.username}
+                            </Typography>
+                            <Divider/>
+                            <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                            <MenuItem onClick={this.handleLogoutClick}>Log out</MenuItem>
+                          </Menu>
+                          </Button>
+                    </div>
             <div className={classes.sectionMobile}>
               <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
                 <MenuIcon />
@@ -246,6 +252,7 @@ class DashNavBar extends Component {
             </div>
           </Toolbar>
         </AppBar>
+        </div>
         {/* {renderMobileMenu} */}  
         <main className={classes.content}>
                 {this.props.children}            
