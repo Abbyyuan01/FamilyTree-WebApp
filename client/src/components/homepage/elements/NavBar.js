@@ -193,7 +193,7 @@ class NavBar extends Component {
           color="primary"
         >
           <Toolbar>
-						<IconButton href="https://hourtech.ca" className={classes.menuButton} color="inherit" aria-label="Open drawer">
+						<IconButton href="/" className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <img src={logo} alt="Family Tree Logo" />
             </IconButton>
             <h1 className={classes.title}>

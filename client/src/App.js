@@ -20,10 +20,15 @@ import GenerateAccount from "./components/authentication/generate.component";
 import ArtifactUpload from "./components/dashboard/artifacts/artifacts-upload.component";
 import ArtifactView from "./components/dashboard/artifacts/artifacts-view.component";
 import Timeline from "./components/dashboard/artifacts/artifacts-timeline.component";
-import DashboardNav from "./components/dashboard/navbar/dashboardNav";
 import ErrorBoundary from "./errorBoundary"
 import UploadedArtifact from "./components/dashboard/artifacts/uploaded-artifact.component";
 import DashNavBar from "./components/dashboard/navbar/dashBoardNavbar";
+<<<<<<< HEAD
+=======
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+// import Footer from "./components/homepage/Footer"
+import "./css/App.css";
+>>>>>>> COKECH2219-79-ChangeNavbar
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -46,12 +51,55 @@ if (localStorage.jwtToken) {
   }
 }
 
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#13bcd4",
+      light: "#5ac7d9",
+      lightest: "#b7e3ec"
+    },
+    secondary: {
+      main: "#154b9c",
+      light: "#478fcc"
+    }
+  },
+  overrides: {
+    MuiButton: {
+      raisedPrimary: {
+        color: "white",
+        fontWeight: 600
+      }
+    }
+  },
+  status: {
+    danger: "orange"
+  },
+  typography: {
+    fontFamily: [
+      "Overpass",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"'
+    ].join(","),
+    useNextVariants: true
+  }
+});
+
 class App extends Component {
   /**
    * page router
    */
   render() {
     return (
+      <MuiThemeProvider theme={theme}>
       <ErrorBoundary>
       <Provider store={store}>
         <Router>
@@ -71,7 +119,11 @@ class App extends Component {
                     <Route exact path={`${path}/upload`} component={props => <ArtifactUpload {...props} />} />
                     <Route path={`${path}/timeline`} component={props => <Timeline {...props} />} />
                     <Route path={`${path}/myArtifact`} component={props => <UploadedArtifact {...props} />} />
+<<<<<<< HEAD
                   </DashNavBar>
+=======
+                  </DashNavBar>  
+>>>>>>> COKECH2219-79-ChangeNavbar
                 )}
   
               />
@@ -81,6 +133,7 @@ class App extends Component {
         </Router>
       </Provider>
       </ErrorBoundary>
+      </MuiThemeProvider>
     );
   }
 }
