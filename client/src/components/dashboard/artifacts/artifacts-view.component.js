@@ -84,6 +84,7 @@ class ArtifactView extends Component {
         this.state = {
           artifacts: [],
           filteredArtifacts: [],
+          date: new Date().toLocaleString(),
           search: '',
           entered: false,
           photoIndex: 0,
@@ -255,7 +256,7 @@ class ArtifactView extends Component {
                      {filteredArtifacts[this.state.photoIndex].description}
                      </Typography>
                      <Typography variant="subtitle2" gutterBottom>
-                     {filteredArtifacts[this.state.photoIndex].artifactTime}
+                     {new Date(filteredArtifacts[this.state.photoIndex].artifactTime).toLocaleDateString()}
                      </Typography>
                   </div> 
                                             
