@@ -116,11 +116,7 @@ class App extends Component {
                     <Route exact path={`${path}/upload`} component={props => <ArtifactUpload {...props} />} />
                     <Route path={`${path}/timeline`} component={props => <Timeline {...props} />} />
                     <Route path={`${path}/myArtifact`} component={props => <UploadedArtifact {...props} />} />
-<<<<<<< HEAD
-                  </DashNavBar>
-=======
                   </DashNavBar>  
->>>>>>> COKECH2219-79-ChangeNavbar
                 )}
   
               />
