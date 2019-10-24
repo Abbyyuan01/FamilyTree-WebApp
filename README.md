@@ -2,9 +2,9 @@
 
 # GhostZen
 
-The project will create a web-based app to help family members to store their family artefacts including photos, documents, letters and etc. The project will be completed by Monday 28 October 2019. 6 Modules of the app will include family artifacts management, account management, search, authentication, access level and message.
+The project will create a web-based app to help family members to store their family artefacts including photos, documents, letters and etc. The project will be completed by Monday 28 October 2019. 3 Modules of the app will include family artifacts management,search, authentication.
 
-Team Members:
+Team Members
 
    |Name|ID|Email|
    | --- | --- | --- |
