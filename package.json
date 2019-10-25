@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest ./tests --runInBand --detectOpenHandles --forceExit",
+    "test": "jest ./tests --runInBand --coverage --detectOpenHandles --forceExit",
     "client-install": "npm install --prefix client",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
