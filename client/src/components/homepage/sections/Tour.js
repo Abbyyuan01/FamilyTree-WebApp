@@ -74,7 +74,7 @@ class Tour extends Component {
         <br></br>
 		    <div classname="iframe-container">
           <iframe
-            width="560"
+            width="100%"
             height="315"
             src="https://www.youtube.com/embed/lsKZhq4mv1k"
             frameborder="0"
