@@ -76,7 +76,7 @@ class Tour extends Component {
           <iframe
             width="100%"
             height="369"
-            src="https://www.youtube.com/embed/aWOLS99XgCI"
+            src="https://www.youtube.com/embed/UpiLq4gWApo"
             frameborder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
