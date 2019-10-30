@@ -9,7 +9,7 @@ Team Members
    |Name|ID|Email|
    | --- | --- | --- |
    | Nisha SV Lingam | 887307 | nsv@student.unimelb.edu.au |
-   | Iris Tang | 904694 | mengjiet@student.unimelb.edu.au |
+   | Mengjie Tang | 904694 | mengjiet@student.unimelb.edu.au |
    | Yuan Yuan | 939342 | yyuan10@student.unimelb.edu.au |
   
     
