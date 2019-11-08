@@ -38,7 +38,7 @@ npm run client
 
 There is a Heroku post build script so that you do not have to compile your React frontend manually, it is done on the server. Simply push to Heroku and it will build and load the client index.html page
 
-The Web Link: https://ghostzen.herokuapp.com/
+The Web Link: https://family-tree-webapp.herokuapp.com/
 
 ## App Info
 
