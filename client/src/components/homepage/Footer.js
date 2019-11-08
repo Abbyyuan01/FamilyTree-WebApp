@@ -39,8 +39,8 @@ const Footer = props => (
   <footer className={props.classes.root}>
     <div className={"wrapper " + props.classes.rootFlex}>
       <p className={props.classes.flexChildren}>
-        <IconButton href="https://hourtech.ca" className={props.classes.logo}>
-          <img src={logo} alt="HourTech Logo" />
+        <IconButton href="/" className={props.classes.logo}>
+          <img src={logo} alt="FamilTree Logo" />
         </IconButton>
         FamilyTree
       </p>

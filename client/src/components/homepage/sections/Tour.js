@@ -16,7 +16,7 @@ const styles = theme => ({
     right: 0,
     zIndex: -1,
     [theme.breakpoints.up("md")]: {
-      backgroundColor: theme.palette.primary.lightest
+      backgroundColor: theme.palette.primary.white
     }
   },
   tabsRoot: {
@@ -75,9 +75,9 @@ class Tour extends Component {
 		    <div classname="iframe-container">
           <iframe
             width="100%"
-            height="369"
+            height="700"
             src="https://www.youtube.com/embed/UpiLq4gWApo"
-            frameborder="0"
+            // frameborder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
           ></iframe>
