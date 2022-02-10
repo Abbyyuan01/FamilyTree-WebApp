@@ -14,7 +14,7 @@
     "jwt-decode": "^2.2.0",
     "material-ui": "^0.20.2",
     "material-ui-image": "^3.2.1",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "prop-types": "^15.7.2",
     "ramda": "^0.26.1",
     "react": "^16.9.0",
